@@ -317,8 +317,8 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
   <div id="guestRestartDiv" class="non-host-wait" style="display:none;">⏳ ホストが新しいゲームを開始するのを待っています...</div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script>
 // ==========================================
 //  CONSTANTS
@@ -408,12 +408,12 @@ function createRoom(){
   const player={id:myId,name,emoji:P_EMO[0],col:P_COLS[0],money:500,isHost:true};
   roomRef.set({
     status:'waiting',hostId:myId,
-    players:{[myId]:player},
+    players:function(){var o={};o[myId]=player;return o;}(),
     race:1,total:3,
     betIdx:0,bets:{},publicDeck:[],
     raceState:null,
   }).then(()=>{
-    roomRef.onDisconnect().update({'players/'+myId:null});
+    var _dk='players/'+myId; var _du={}; _du[_dk]=null; roomRef.onDisconnect().update(_du);
     startListening();
     document.getElementById('dispCode').textContent=roomCode;
     showScr('waitingRoom');
