@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🔥 HOT STREAK ONLINE</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{--bg:#0a0a18;--bg2:#111128;--bg3:#1a1a30;--gold:#f5c842;--orange:#ff6b35;--white:#f0f0f0;--muted:#888;--border:rgba(255,255,255,0.12);--r:12px;--rs:8px;}
+html,body{width:100%;min-height:100%;background:var(--bg);color:var(--white);font-family:-apple-system,system-ui,sans-serif;font-size:15px;overflow-x:hidden;}
+.screen{display:none;min-height:100vh;padding:16px 14px 40px;}
+.screen.active{display:block;}
+#raceView{padding:0;}
+
+.logo-wrap{text-align:center;padding:20px 0 16px;}
+.logo{font-size:34px;font-weight:900;color:var(--gold);}
+.logo span{color:var(--orange);}
+.logo-sub{font-size:11px;color:var(--muted);letter-spacing:3px;margin-top:4px;}
+
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px;}
+.card-title{font-size:13px;color:var(--gold);font-weight:600;margin-bottom:12px;}
+.sec{font-size:12px;color:var(--gold);font-weight:600;margin:14px 0 8px;}
+
+input[type=text]{display:block;width:100%;background:rgba(255,255,255,0.07);border:1px solid var(--border);border-radius:var(--rs);color:var(--white);font-size:15px;padding:12px 13px;outline:none;-webkit-appearance:none;margin-bottom:10px;}
+input[type=text]:focus{border-color:var(--gold);}
+input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
+
+.btn{display:block;width:100%;padding:15px;border:none;border-radius:var(--r);font-size:16px;font-weight:700;cursor:pointer;text-align:center;-webkit-appearance:none;}
+.btn-primary{background:var(--orange);color:#fff;}
+.btn-blue{background:#1a3a7a;color:#fff;}
+.btn-green{background:#1a5a3a;color:#fff;}
+.btn-gray{background:var(--bg3);color:var(--muted);border:1px solid var(--border);}
+.btn:active{opacity:0.8;}
+.btn:disabled{opacity:0.35;cursor:not-allowed;}
+.btn-row{display:flex;gap:8px;margin-top:8px;}
+.btn-row .btn{flex:1;}
+
+.status-bar{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg2);border-radius:var(--rs);margin-bottom:12px;font-size:13px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;}
+.dot.on{background:#4aff84;animation:pulse 1.5s infinite;}
+.dot.wait{background:var(--gold);animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;};}
+
+.room-code-box{text-align:center;padding:20px;background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.25);border-radius:var(--r);margin-bottom:14px;}
+.room-code{font-size:44px;font-weight:900;color:var(--gold);letter-spacing:8px;margin-bottom:6px;}
+.room-hint{font-size:12px;color:var(--muted);}
+
+.pl-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.pl-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--rs);}
+.pl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.pl-name{flex:1;font-size:14px;}
+.badge{font-size:10px;padding:2px 7px;border-radius:8px;}
+.badge-host{background:rgba(245,200,66,0.15);color:var(--gold);}
+.badge-you{background:rgba(74,200,255,0.15);color:#4ac8ff;}
+
+.wait-box{text-align:center;padding:28px 16px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--r);margin-bottom:14px;}
+.wait-emoji{font-size:44px;display:block;margin-bottom:10px;animation:bounce 1s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px)};}
+.wait-txt{font-size:14px;color:var(--muted);}
+.wait-name{color:var(--gold);font-weight:600;}
+
+.turn-banner{display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:14px;}
+.t-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.t-info{flex:1;min-width:0;}
+.t-name{font-size:15px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.t-desc{font-size:11px;color:var(--muted);}
+.t-money{font-size:18px;font-weight:700;color:var(--gold);white-space:nowrap;}
+
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.m-card{background:var(--bg2);border:2px solid var(--border);border-radius:var(--r);padding:12px 8px;text-align:center;cursor:pointer;}
+.m-card.sel{border-color:var(--gold);background:rgba(245,200,66,0.07);}
+.m-emo{font-size:36px;display:block;margin-bottom:4px;}
+.m-nm{font-size:12px;font-weight:600;}
+.m-od{font-size:11px;color:var(--muted);}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.chip{padding:10px 16px;border-radius:22px;border:1px solid var(--border);background:transparent;color:var(--white);font-size:14px;font-weight:600;cursor:pointer;-webkit-appearance:none;}
+.chip.sel{background:var(--gold);color:#000;border-color:var(--gold);}
+
+/* ─ デッキ公開情報 ─ */
+.deck-public-area{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:14px;}
+.deck-public-title{font-size:12px;color:var(--gold);font-weight:600;margin-bottom:10px;}
+.deck-cards-grid{display:flex;flex-wrap:wrap;gap:6px;}
+.dc-chip{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;}
+
+/* ─ 手札 ─ */
+.hand-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;}
+.hand-scroll::-webkit-scrollbar{display:none;}
+.h-card{flex-shrink:0;width:88px;background:var(--bg2);border:2px solid var(--border);border-radius:var(--rs);padding:10px 7px;text-align:center;cursor:pointer;}
+.h-card.sel{border-color:var(--orange);background:rgba(255,107,53,0.1);}
+.h-card.none-card{border-style:dashed;}
+.h-ico{font-size:24px;display:block;margin-bottom:5px;}
+.h-ttl{font-size:11px;font-weight:700;}
+.h-dsc{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.3;}
+.h-tag{font-size:9px;margin-top:5px;padding:2px 6px;border-radius:6px;display:inline-block;}
+
+/* ─ RACE ─ */
+.race-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,0.6);border-bottom:1px solid var(--border);}
+.r-title{font-size:15px;font-weight:700;color:var(--gold);}
+.r-sub{font-size:11px;color:var(--muted);}
+.sp-row{display:flex;gap:5px;}
+.sp-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;}
+.sp-btn.sel{background:var(--gold);color:#000;border-color:var(--gold);}
+
+.track-wrap{background:#0b1e0b;overflow:hidden;}
+.track-3d{margin:0 auto;transform-style:preserve-3d;transform:perspective(480px) rotateX(46deg);transform-origin:50% 28%;}
+.track-bg{background:#1a3d1a;border:3px solid #c8a200;border-radius:14px;position:relative;overflow:hidden;}
+.lane-sep{position:absolute;left:0;right:0;border-top:1px dashed rgba(255,255,255,0.15);}
+.star-mark{position:absolute;font-size:13px;z-index:2;transform:translateX(-50%);}
+.finish-bar{position:absolute;top:0;left:0;right:0;height:18px;display:flex;}
+.finish-cell{flex:1;height:18px;}
+.start-bar{position:absolute;bottom:0;left:0;right:0;height:14px;background:repeating-linear-gradient(90deg,#fff 0,#fff 13px,#000 13px,#000 26px);opacity:0.5;}
+.mascot-el{position:absolute;text-align:center;transition:left .6s ease,top .6s ease;}
+.m-body{font-size:28px;display:block;transition:transform .3s;}
+.mascot-el.fallen .m-body{transform:rotate(90deg);}
+.mascot-el.reversed .m-body{transform:scaleX(-1);}
+.mascot-el.reversed.fallen .m-body{transform:scaleX(-1) rotate(-90deg);}
+.m-lbl{font-size:8px;color:#fff;background:rgba(0,0,0,0.7);padding:1px 4px;border-radius:3px;display:inline-block;margin-top:1px;white-space:nowrap;}
+
+.modal-wrap{display:flex;align-items:center;justify-content:center;padding:14px;margin:8px 14px;}
+.modal-box{background:#181830;border:2px solid var(--gold);border-radius:18px;padding:22px 18px;text-align:center;width:100%;max-width:300px;}
+.mod-ico{font-size:50px;margin-bottom:8px;}
+.mod-ttl{font-size:20px;font-weight:700;margin-bottom:4px;}
+.mod-tgt{font-size:13px;color:var(--gold);margin-bottom:4px;}
+.mod-dsc{font-size:12px;color:var(--muted);margin-bottom:18px;}
+.mod-btn{padding:13px 28px;border:none;border-radius:10px;color:#000;font-size:15px;font-weight:700;cursor:pointer;}
+
+.race-log{background:rgba(0,0,0,0.65);padding:8px 12px;font-size:12px;line-height:1.9;max-height:76px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.lf{color:#4aff84;}.lb{color:#ff6b6b;}.lfall{color:#ff9944;}.lrev{color:#cc88ff;}.lrec{color:#44ccff;}.llane{color:var(--gold);}.lstar{color:#ffe066;}.lhi{color:var(--gold);font-weight:600;}
+
+.deck-row{display:flex;align-items:center;gap:8px;padding:10px 14px;}
+.d-lbl{font-size:12px;color:var(--muted);white-space:nowrap;}
+.pbar{flex:1;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;}
+.pfill{height:100%;background:var(--orange);transition:width .4s;border-radius:2px;}
+.d-cnt{font-size:12px;color:var(--gold);white-space:nowrap;}
+.btn-draw{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 14px 14px;padding:14px;background:#1e3a7a;border:none;border-radius:var(--r);color:#fff;font-size:15px;font-weight:700;cursor:pointer;}
+.btn-draw:active{opacity:0.8;}
+.btn-draw:disabled{opacity:0.35;cursor:not-allowed;}
+.non-host-wait{text-align:center;padding:14px;margin:0 14px 12px;background:rgba(255,255,255,0.03);border-radius:var(--r);font-size:13px;color:var(--muted);}
+
+.podium-row{display:flex;align-items:flex-end;justify-content:center;gap:5px;margin-bottom:22px;}
+.pod-item{display:flex;flex-direction:column;align-items:center;text-align:center;}
+.pod-emo{font-size:28px;margin-bottom:5px;}
+.pod-nm{font-size:10px;font-weight:600;margin-bottom:3px;max-width:66px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pod-blk{width:64px;border-radius:5px 5px 0 0;display:flex;align-items:center;justify-content:center;font-weight:900;}
+.p1{height:68px;background:#a07a08;color:#fff;font-size:18px;}
+.p2{height:50px;background:#777;color:#fff;font-size:16px;}
+.p3{height:34px;background:#6a3008;color:#fff;font-size:14px;}
+.p4{height:20px;background:#2a2a2a;color:#888;font-size:11px;}
+
+.pay-row{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,0.03);margin-bottom:6px;}
+.pay-row.win{background:rgba(245,200,66,0.07);border:1px solid rgba(245,200,66,0.2);}
+.pay-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.pay-inf{flex:1;min-width:0;}
+.pay-nm{font-size:13px;font-weight:600;}
+.pay-dt{font-size:10px;color:var(--muted);}
+.pay-amt{font-size:15px;font-weight:700;white-space:nowrap;}
+.pay-p{color:#4aff84;}.pay-m{color:#ff6b6b;}
+
+.st-row{display:flex;align-items:center;padding:9px 12px;border-radius:9px;background:rgba(255,255,255,0.03);margin-bottom:5px;}
+.st-rank{font-size:14px;font-weight:700;width:22px;color:var(--muted);}
+.st-rank.g{color:var(--gold);}
+.st-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;margin-right:8px;}
+.st-nm{flex:1;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.st-mn{font-size:15px;font-weight:700;color:var(--gold);}
+
+#finalView{text-align:center;}
+.f-crown{font-size:72px;margin:36px 0 10px;display:block;}
+.f-winner{font-size:24px;font-weight:700;margin-bottom:4px;}
+.f-money{font-size:15px;color:var(--gold);margin-bottom:28px;}
+@keyframes fw{0%{transform:scale(0) translateY(0);opacity:1;}55%{transform:scale(1.5) translateY(-80px);opacity:1;}100%{transform:scale(0.5) translateY(-160px);opacity:0;}}
+.fw-el{position:absolute;font-size:28px;pointer-events:none;animation:fw 1.4s ease-out forwards;}
+</style>
+</head>
+<body>
+
+<!-- LOBBY -->
+<div id="lobby" class="screen active">
+  <div class="logo-wrap">
+    <div class="logo">🔥 HOT <span>STREAK</span></div>
+    <div class="logo-sub">ONLINE MULTIPLAYER</div>
+  </div>
+  <div class="status-bar"><div class="dot on"></div><span id="connStatus">Firebase接続中...</span></div>
+  <div class="card">
+    <div class="card-title">👤 あなたの名前</div>
+    <input type="text" id="myName" placeholder="プレイヤー名" maxlength="12">
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="createRoom()">🏠 作成</button>
+      <button class="btn btn-blue" onclick="toggleJoin()">🚪 参加</button>
+    </div>
+  </div>
+  <div id="joinArea" style="display:none;">
+    <div class="card">
+      <div class="card-title">🔑 ルームコードを入力</div>
+      <input type="text" id="joinCode" placeholder="4桁（例: A3F7）" maxlength="4" style="text-transform:uppercase;letter-spacing:4px;font-size:22px;text-align:center;">
+      <button class="btn btn-blue" onclick="joinRoom()">参加する</button>
+    </div>
+  </div>
+</div>
+
+<!-- WAITING ROOM -->
+<div id="waitingRoom" class="screen">
+  <div class="logo-wrap" style="padding:12px 0 8px;">
+    <div class="logo">🔥 HOT <span>STREAK</span></div>
+  </div>
+  <div class="room-code-box">
+    <div class="room-code" id="dispCode">----</div>
+    <div class="room-hint">このコードを友達に共有しよう</div>
+    <button class="btn btn-gray" onclick="copyCode()" style="width:auto;padding:8px 18px;font-size:12px;margin-top:8px;display:inline-block;">コードをコピー</button>
+  </div>
+  <div class="status-bar"><div class="dot wait"></div><span id="waitStatus">参加者を待っています...</span></div>
+  <div class="sec">参加者</div>
+  <div class="pl-list" id="waitPlayers"></div>
+  <div id="hostStartDiv">
+    <button class="btn btn-primary" id="startBtn" onclick="hostStart()" disabled>ゲーム開始（2人以上）</button>
+  </div>
+  <div id="guestWaitDiv" style="display:none;">
+    <div class="wait-box"><span class="wait-emoji">⏳</span><div class="wait-txt">ホストがゲームを開始するのを待っています</div></div>
+  </div>
+</div>
+
+<!-- BET PHASE -->
+<div id="betPhase" class="screen">
+  <div class="logo-wrap" style="padding:10px 0 6px;">
+    <div style="font-size:11px;color:var(--muted);letter-spacing:2px;" id="betLabel">RACE 1</div>
+    <div style="font-size:18px;font-weight:700;color:var(--gold);">🎰 ベットフェーズ</div>
+  </div>
+
+  <!-- 公開デッキ情報（常に表示） -->
+  <div class="deck-public-area">
+    <div class="deck-public-title">📋 デッキの公開カード（10枚）</div>
+    <div class="deck-cards-grid" id="publicDeckCards"></div>
+  </div>
+
+  <!-- 自分のターン -->
+  <div id="myBetArea">
+    <div class="turn-banner">
+      <div class="t-av" id="tAv"></div>
+      <div class="t-info"><div class="t-name" id="tNm"></div><div class="t-desc" id="tDsc"></div></div>
+      <div class="t-money" id="tMn">$500</div>
+    </div>
+    <div class="m-grid" id="mGrid"></div>
+    <div class="sec">💰 賭け金額</div>
+    <div class="chips" id="amtChips"></div>
+    <div class="sec">🃏 手札から1枚デッキに仕込む（任意）<span style="color:var(--muted);font-weight:400;">— 他のプレイヤーには非公開</span></div>
+    <div class="hand-scroll" id="handScroll"></div>
+    <div style="margin-top:14px;">
+      <button class="btn btn-green" id="confBtn" onclick="submitBet()" disabled>確定する</button>
+    </div>
+  </div>
+
+  <!-- 他の人のターン待ち -->
+  <div id="waitBetArea" style="display:none;">
+    <div class="wait-box">
+      <span class="wait-emoji">🎰</span>
+      <div class="wait-txt"><span class="wait-name" id="waitBetName">?</span> がベット中...</div>
+    </div>
+    <div class="sec">ベット状況</div>
+    <div class="pl-list" id="betProgress"></div>
+  </div>
+</div>
+
+<!-- RACE -->
+<div id="raceView" class="screen">
+  <div class="race-hdr">
+    <div><div class="r-title" id="rTitle">RACE 1</div><div class="r-sub" id="rSub">進行中...</div></div>
+    <div class="sp-row">
+      <button class="sp-btn sel" onclick="setSpd(1,this)">1x</button>
+      <button class="sp-btn" onclick="setSpd(2,this)">2x</button>
+      <button class="sp-btn" onclick="setSpd(0.4,this)">遅</button>
+    </div>
+  </div>
+  <div class="track-wrap" id="trackWrap">
+    <div class="track-3d" id="t3d"><div class="track-bg" id="tBg"></div></div>
+  </div>
+  <div id="modalArea"></div>
+  <div class="race-log" id="rLog"></div>
+  <div class="deck-row">
+    <span class="d-lbl">デッキ</span>
+    <div class="pbar"><div class="pfill" id="pFill" style="width:100%"></div></div>
+    <span class="d-cnt" id="pCnt">0/0</span>
+  </div>
+  <div id="hostDrawDiv">
+    <button class="btn-draw" id="drawBtn" onclick="hostDraw()">🃏 カードをめくる</button>
+  </div>
+  <div id="guestDrawDiv" class="non-host-wait" style="display:none;">⏳ ホストがカードをめくっています...</div>
+</div>
+
+<!-- RESULTS -->
+<div id="resultsView" class="screen">
+  <div class="logo-wrap" style="padding:10px 0 6px;">
+    <div style="font-size:11px;color:var(--muted);letter-spacing:2px;" id="resLabel">RACE 1 結果</div>
+    <div style="font-size:18px;font-weight:700;color:var(--gold);">🏆 レース結果</div>
+  </div>
+  <div class="podium-row" id="podRow"></div>
+  <div class="sec">💸 配当</div>
+  <div id="payList"></div>
+  <div class="sec">📊 現在の順位</div>
+  <div id="stList"></div>
+  <div style="margin-top:16px;" id="hostNextDiv">
+    <button class="btn btn-blue" id="nextBtn" onclick="hostNext()">次のレースへ →</button>
+  </div>
+  <div id="guestNextDiv" class="non-host-wait" style="display:none;">⏳ ホストが次のレースを開始するのを待っています...</div>
+</div>
+
+<!-- FINAL -->
+<div id="finalView" class="screen">
+  <span class="f-crown" id="fCrown">🏆</span>
+  <div class="f-winner" id="fWin"></div>
+  <div class="f-money" id="fMon"></div>
+  <div class="sec">📊 最終順位</div>
+  <div id="fStands"></div>
+  <div style="margin-top:20px;padding-bottom:20px;" id="hostRestartDiv">
+    <button class="btn btn-primary" onclick="hostRestart()">もう一度プレイ</button>
+  </div>
+  <div id="guestRestartDiv" class="non-host-wait" style="display:none;">⏳ ホストが新しいゲームを開始するのを待っています...</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+// ══════════════════════════════════════════
+//  CONSTANTS
+// ══════════════════════════════════════════
+const MASCOTS=[
+  {id:0,name:'フライベア',emoji:'🐻',col:'#ff6b35'},
+  {id:1,name:'ロケフロッグ',emoji:'🐸',col:'#4aff84'},
+  {id:2,name:'スーパーシャーク',emoji:'🦈',col:'#4ac8ff'},
+  {id:3,name:'マジバニー',emoji:'🐰',col:'#cc88ff'},
+];
+const ALL_CARDS=[
+  {id:'fw3',name:'大前進',emoji:'🚀',desc:'3マス前進',effect:'forward',amt:3},
+  {id:'fw2',name:'前進',emoji:'➡️',desc:'2マス前進',effect:'forward',amt:2},
+  {id:'fw1',name:'小前進',emoji:'▶️',desc:'1マス前進',effect:'forward',amt:1},
+  {id:'bk2',name:'後退',emoji:'⬅️',desc:'2マス後退',effect:'back',amt:2},
+  {id:'bk1',name:'小後退',emoji:'◀️',desc:'1マス後退',effect:'back',amt:1},
+  {id:'fall',name:'転倒！',emoji:'💥',desc:'転倒・次の1回スキップ',effect:'fall',amt:0},
+  {id:'rev',name:'逆走',emoji:'🔄',desc:'進行方向が逆になる',effect:'reverse',amt:0},
+  {id:'rec',name:'リカバリー',emoji:'⭐',desc:'転倒/逆走から回復',effect:'recover',amt:0},
+  {id:'lane',name:'レーン移動',emoji:'↔️',desc:'隣のレーンへ移動',effect:'lane',amt:0},
+  {id:'star',name:'★ジャンプ',emoji:'🌟',desc:'次の★マスまで移動',effect:'star',amt:0},
+];
+const P_COLS=['#ff6b35','#4ac8ff','#4aff84','#cc88ff','#ffd700','#ff88aa','#44ddcc','#ffaa44','#aa88ff','#88ff88'];
+const P_EMO=['🦊','🐺','🐼','🦁','🐯','🦋','🐉','🦄','🐨','🐻‍❄️'];
+const MULTS=[3,1.5,0.5,0];
+const TRACK_LEN=10;
+const STAR_POSITIONS=[5,10]; // 5マス毎に★
+
+// Firebase config（埋め込み）
+const FIREBASE_CONFIG={
+  apiKey:"AIzaSyCSqAR8CdlCCeBtkJh4wC57kIS1t2C2CD0",
+  authDomain:"hothotstreak-54cac.firebaseapp.com",
+  databaseURL:"https://hothotstreak-54cac-default-rtdb.firebaseio.com",
+  projectId:"hothotstreak-54cac",
+  storageBucket:"hothotstreak-54cac.firebasestorage.app",
+  messagingSenderId:"164725106582",
+  appId:"1:164725106582:web:e70eff2424ec42332adfb7"
+};
+
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+let db=null, roomRef=null, roomCode='', myId='', isHost=false;
+let snap={}; // ローカルに保持するFirebaseスナップショット
+let spd=1;
+let sMas=null, sAmt=null, sInjCard=null; // ベット選択状態
+let myHand=[]; // 自分の手札（ローカルのみ）
+let trackBuilt=false;
+let lastStatus=''; // 前回のstatus（重複処理防止）
+let lastBetIdx=-1; // ベットUIリビルド防止
+
+// ══════════════════════════════════════════
+//  FIREBASE INIT
+// ══════════════════════════════════════════
+window.addEventListener('load',()=>{
+  try{
+    firebase.initializeApp(FIREBASE_CONFIG);
+    db=firebase.database();
+    db.ref('.info/connected').on('value',s=>{
+      document.getElementById('connStatus').textContent=s.val()?'Firebase接続済み':'接続中...';
+    });
+  }catch(e){alert('Firebase初期化エラー:'+e.message);}
+});
+
+// ══════════════════════════════════════════
+//  ROOM MANAGEMENT
+// ══════════════════════════════════════════
+function genCode(){
+  return Array.from({length:4},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)]).join('');
+}
+function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2);}
+
+function sortedPlayers(data){
+  return Object.values(data.players||{}).sort((a,b)=>P_COLS.indexOf(a.col)-P_COLS.indexOf(b.col));
+}
+
+function toggleJoin(){
+  const a=document.getElementById('joinArea');
+  a.style.display=a.style.display==='none'?'block':'none';
+}
+
+function createRoom(){
+  const name=(document.getElementById('myName').value||'ホスト').trim();
+  myId=genId(); myName=name; isHost=true;
+  roomCode=genCode();
+  roomRef=db.ref('rooms/'+roomCode);
+  const player={id:myId,name,emoji:P_EMO[0],col:P_COLS[0],money:500,isHost:true};
+  roomRef.set({
+    status:'waiting',hostId:myId,
+    players:{[myId]:player},
+    race:1,total:3,
+    betIdx:0,bets:{},publicDeck:[],
+    raceState:null,
+  }).then(()=>{
+    roomRef.onDisconnect().update({'players/'+myId:null});
+    startListening();
+    document.getElementById('dispCode').textContent=roomCode;
+    showScr('waitingRoom');
+    document.getElementById('hostStartDiv').style.display='block';
+    document.getElementById('guestWaitDiv').style.display='none';
+  });
+}
+
+function joinRoom(){
+  const code=(document.getElementById('joinCode').value||'').trim().toUpperCase();
+  if(code.length!==4){alert('4桁のコードを入力してください');return;}
+  const name=(document.getElementById('myName').value||'ゲスト').trim();
+  myId=genId(); myName=name; isHost=false; roomCode=code;
+  roomRef=db.ref('rooms/'+code);
+  roomRef.once('value').then(s=>{
+    const data=s.val();
+    if(!data){alert('ルームが見つかりません');return;}
+    if(data.status!=='waiting'){alert('このルームはゲーム開始済みです');return;}
+    const existing=Object.values(data.players||{});
+    if(existing.length>=10){alert('満員です');return;}
+    const idx=existing.length;
+    const player={id:myId,name,emoji:P_EMO[idx],col:P_COLS[idx],money:500,isHost:false};
+    roomRef.child('players/'+myId).set(player).then(()=>{
+      roomRef.child('players/'+myId).onDisconnect().remove();
+      startListening();
+      document.getElementById('dispCode').textContent=code;
+      showScr('waitingRoom');
+      document.getElementById('hostStartDiv').style.display='none';
+      document.getElementById('guestWaitDiv').style.display='block';
+    });
+  });
+}
+
+function copyCode(){
+  navigator.clipboard&&navigator.clipboard.writeText(roomCode).then(()=>alert('コピーしました: '+roomCode)).catch(()=>alert('コード: '+roomCode));
+}
+
+// ══════════════════════════════════════════
+//  CENTRAL LISTENER  ← シンプルに1つだけ
+// ══════════════════════════════════════════
+function startListening(){
+  roomRef.on('value',s=>{
+    if(!s.val())return;
+    snap=s.val();
+    const st=snap.status;
+
+    // statusが変わった時だけ画面遷移（重複防止）
+    if(st!==lastStatus){
+      lastStatus=st;
+      lastBetIdx=-1; // status変化時にリセット
+      trackBuilt=false;
+    }
+
+    switch(st){
+      case'waiting':  renderWaiting();  break;
+      case'betting':  renderBetting();  break;
+      case'racing':   renderRacing();   break;
+      case'results':  renderResults();  break;
+      case'final':    renderFinal();    break;
+    }
+  });
+}
+
+// ══════════════════════════════════════════
+//  WAITING ROOM
+// ══════════════════════════════════════════
+function renderWaiting(){
+  showScr('waitingRoom');
+  const players=sortedPlayers(snap);
+  const list=document.getElementById('waitPlayers');
+  list.innerHTML='';
+  players.forEach(p=>{
+    const r=document.createElement('div');r.className='pl-row';
+    r.innerHTML=`<div class="pl-dot" style="background:${p.col}"></div><div class="pl-name">${p.name}</div>${p.isHost?'<span class="badge badge-host">HOST</span>':''}${p.id===myId?'<span class="badge badge-you">YOU</span>':''}`;
+    list.appendChild(r);
+  });
+  document.getElementById('waitStatus').textContent=`${players.length}人が参加中`;
+  if(isHost){
+    document.getElementById('hostStartDiv').style.display='block';
+    document.getElementById('guestWaitDiv').style.display='none';
+    document.getElementById('startBtn').disabled=players.length<2;
+  }else{
+    document.getElementById('hostStartDiv').style.display='none';
+    document.getElementById('guestWaitDiv').style.display='block';
+  }
+}
+
+function hostStart(){
+  if(!isHost)return;
+  const players=sortedPlayers(snap);
+  if(players.length<2)return;
+  // 公開デッキ10枚をランダム選出（全カードタイプ×マスコットのプールからシャッフル）
+  const pool=[];
+  MASCOTS.forEach(m=>ALL_CARDS.forEach(c=>pool.push({...c,mascotId:m.id})));
+  shuffle(pool);
+  const publicDeck=pool.slice(0,10);
+  roomRef.update({status:'betting',betIdx:0,bets:{},publicDeck,race:1});
+}
+
+// ══════════════════════════════════════════
+//  BETTING
+// ══════════════════════════════════════════
+function renderBetting(){
+  showScr('betPhase');
+  const players=sortedPlayers(snap);
+  const betIdx=snap.betIdx||0;
+  document.getElementById('betLabel').textContent=`RACE ${snap.race}`;
+
+  // 公開デッキ表示（常に更新）
+  renderPublicDeck(snap.publicDeck||[]);
+
+  // 全員ベット完了 → ホストがデッキ確定してレース開始
+  if(betIdx>=players.length){
+    if(isHost) finalizeDeckthenRace();
+    return;
+  }
+
+  const cur=players[betIdx];
+  const myTurn=(cur.id===myId);
+
+  // ターン表示更新
+  const av=document.getElementById('tAv');
+  av.textContent=cur.emoji; av.style.background=cur.col+'33';
+  document.getElementById('tNm').textContent=cur.name;
+  document.getElementById('tMn').textContent=`$${cur.money}`;
+  document.getElementById('tDsc').textContent=`${betIdx+1}/${players.length}番目`;
+
+  document.getElementById('myBetArea').style.display=myTurn?'block':'none';
+  document.getElementById('waitBetArea').style.display=myTurn?'none':'block';
+
+  if(myTurn){
+    // 自分のターンかつbetIdxが変わった時だけUIリビルド
+    if(lastBetIdx!==betIdx){
+      lastBetIdx=betIdx;
+      buildMyBetUI(cur);
+    }
+  }else{
+    lastBetIdx=-1;
+    document.getElementById('waitBetName').textContent=cur.name;
+    const prog=document.getElementById('betProgress');
+    prog.innerHTML='';
+    players.forEach((p,i)=>{
+      const done=i<betIdx,now=i===betIdx;
+      const r=document.createElement('div');r.className='pl-row';
+      r.innerHTML=`<div class="pl-dot" style="background:${p.col}"></div><div class="pl-name">${p.name}</div><span style="font-size:13px">${done?'✅':now?'🎰':'⏳'}</span>`;
+      prog.appendChild(r);
+    });
+  }
+}
+
+function renderPublicDeck(publicDeck){
+  const container=document.getElementById('publicDeckCards');
+  container.innerHTML='';
+  publicDeck.forEach(c=>{
+    const m=MASCOTS[c.mascotId];
+    const chip=document.createElement('div');
+    chip.className='dc-chip';
+    chip.style.background=m.col+'22';
+    chip.style.color=m.col;
+    chip.style.border=`1px solid ${m.col}55`;
+    chip.innerHTML=`${c.emoji} <span style="color:#fff">${c.name}</span> <span style="opacity:0.7">${m.emoji}</span>`;
+    container.appendChild(chip);
+  });
+}
+
+function buildMyBetUI(player){
+  sMas=null; sAmt=null; sInjCard=null;
+  // 手札生成（3枚ランダム）
+  myHand=buildHand();
+
+  // マスコット選択
+  const g=document.getElementById('mGrid');g.innerHTML='';
+  MASCOTS.forEach(m=>{
+    const el=document.createElement('div');el.className='m-card';el.id='mc'+m.id;
+    el.innerHTML=`<span class="m-emo">${m.emoji}</span><div class="m-nm">${m.name}</div><div class="m-od">1位 x3 / 2位 x1.5</div>`;
+    el.onclick=()=>pickM(m.id);
+    g.appendChild(el);
+  });
+
+  // 賭け金額
+  const ch=document.getElementById('amtChips');ch.innerHTML='';
+  [50,100,150,200].forEach(v=>{
+    if(v<=player.money){
+      const b=document.createElement('button');b.className='chip';b.textContent=`$${v}`;
+      b.onclick=()=>pickA(v);ch.appendChild(b);
+    }
+  });
+
+  // 手札
+  buildHandUI();
+  document.getElementById('confBtn').disabled=true;
+  document.getElementById('confBtn').textContent='確定する';
+}
+
+function buildHand(){
+  // カードプール（全カード×全マスコット）からランダムに3枚
+  const pool=[];
+  MASCOTS.forEach(m=>ALL_CARDS.forEach(c=>pool.push({...c,mascotId:m.id})));
+  shuffle(pool);
+  return pool.slice(0,3);
+}
+
+function buildHandUI(){
+  const sc=document.getElementById('handScroll');sc.innerHTML='';
+  // 「仕込まない」
+  const none=mkHCard('✋','仕込まない','秘密カードなし','','');
+  none.classList.add('none-card','sel');
+  none.onclick=()=>{sInjCard=null;sc.querySelectorAll('.h-card').forEach(c=>c.classList.remove('sel'));none.classList.add('sel');};
+  sc.appendChild(none);
+  // 手札3枚
+  myHand.forEach(cd=>{
+    const m=MASCOTS[cd.mascotId];
+    const el=mkHCard(cd.emoji,cd.name,cd.desc,m.emoji+' '+m.name,m.col);
+    el.onclick=()=>{sInjCard=cd;sc.querySelectorAll('.h-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');};
+    sc.appendChild(el);
+  });
+}
+
+function mkHCard(ico,ttl,dsc,tag,tc){
+  const el=document.createElement('div');el.className='h-card';
+  el.innerHTML=`<span class="h-ico">${ico}</span><div class="h-ttl">${ttl}</div><div class="h-dsc">${dsc}</div>${tag?`<div class="h-tag" style="background:${tc}22;color:${tc}">${tag}</div>`:''}`;
+  return el;
+}
+
+function pickM(id){
+  sMas=id;
+  MASCOTS.forEach(m=>{
+    const c=document.getElementById('mc'+m.id);
+    if(c){c.classList.toggle('sel',m.id===id);c.style.borderColor=m.id===id?MASCOTS[id].col:'';}
+  });
+  chkBet();
+}
+function pickA(v){
+  sAmt=v;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('sel',c.textContent===`$${v}`));
+  chkBet();
+}
+function chkBet(){document.getElementById('confBtn').disabled=!(sMas!==null&&sAmt!==null);}
+
+function submitBet(){
+  if(sMas===null||sAmt===null)return;
+  const btn=document.getElementById('confBtn');
+  btn.disabled=true; btn.textContent='送信中...';
+  const bet={playerId:myId,mascotId:sMas,amount:sAmt,inj:sInjCard||null};
+  // ベット保存してからbetIdxをトランザクションで+1
+  roomRef.child('bets/'+myId).set(bet)
+    .then(()=>roomRef.child('betIdx').transaction(v=>(v||0)+1))
+    .then(()=>{/* 成功 — Firebaseリスナーが自動で次の状態を反映 */})
+    .catch(e=>{
+      console.error(e);
+      btn.disabled=false; btn.textContent='確定する';
+      alert('送信エラー。もう一度お試しください。');
+    });
+}
+
+// ══════════════════════════════════════════
+//  DECK FINALIZATION
+// ══════════════════════════════════════════
+function finalizeDeckthenRace(){
+  // 公開デッキ10枚
+  const base=(snap.publicDeck||[]).map(c=>({...c}));
+  // 各プレイヤーの仕込みカード追加
+  const bets=Object.values(snap.bets||{});
+  bets.forEach(b=>{if(b.inj)base.push({...b.inj});});
+  // シャッフル後ランダム3枚除外
+  shuffle(base);
+  const finalDeck=base.slice(3); // 先頭3枚を除外
+  shuffle(finalDeck); // 再シャッフル
+
+  const mPos=MASCOTS.map((_,i)=>({x:0,lane:i}));
+  const mSt=MASCOTS.map(()=>'normal');
+  const raceState={deck:finalDeck,deckIdx:0,mPos,mSt,finishOrder:[],log:[],pendingCard:null};
+
+  roomRef.update({status:'racing',raceState});
+}
+
+// ══════════════════════════════════════════
+//  RACING
+// ══════════════════════════════════════════
+function renderRacing(){
+  showScr('raceView');
+  const rs=snap.raceState;
+  if(!rs)return;
+
+  document.getElementById('rTitle').textContent=`RACE ${snap.race}`;
+
+  // トラック初回構築
+  if(!trackBuilt){
+    buildTrack();
+    trackBuilt=true;
+  }
+
+  renderMascots(rs.mPos,rs.mSt);
+  updBar(rs.deck,rs.deckIdx);
+
+  // ログ同期
+  const rLog=document.getElementById('rLog');
+  const logs=rs.log||[];
+  rLog.innerHTML='';
+  logs.forEach(h=>{const d=document.createElement('div');d.innerHTML=h;rLog.appendChild(d);});
+  rLog.scrollTop=rLog.scrollHeight;
+
+  // レース終了チェック
+  const done=(rs.finishOrder&&rs.finishOrder.length>=MASCOTS.length)||rs.deckIdx>=rs.deck.length;
+  if(done){
+    document.getElementById('drawBtn').disabled=true;
+    document.getElementById('drawBtn').innerHTML='🏁 レース終了！';
+    document.getElementById('rSub').textContent='🏁 レース終了！';
+    if(isHost&&snap.status==='racing') processResults();
+    return;
+  }
+
+  document.getElementById('rSub').textContent=`カード ${rs.deckIdx}/${rs.deck.length}`;
+
+  // ホスト/ゲストUI切り替え
+  if(isHost){
+    document.getElementById('hostDrawDiv').style.display='block';
+    document.getElementById('guestDrawDiv').style.display='none';
+    // pendingCardがあって未適用なら適用ボタン表示
+    if(rs.pendingCard&&!rs.cardApplied){
+      showPendingModal(rs.pendingCard);
+    }else{
+      document.getElementById('modalArea').innerHTML='';
+      document.getElementById('drawBtn').disabled=false;
+      document.getElementById('drawBtn').innerHTML='🃏 カードをめくる';
+    }
+  }else{
+    document.getElementById('hostDrawDiv').style.display='none';
+    document.getElementById('guestDrawDiv').style.display='block';
+    // ゲストにもカード表示（確認用・操作不可）
+    if(rs.pendingCard&&!rs.cardApplied){
+      showPendingModal(rs.pendingCard,false);
+    }else{
+      document.getElementById('modalArea').innerHTML='';
+    }
+  }
+}
+
+function hostDraw(){
+  if(!isHost)return;
+  const rs=snap.raceState;
+  if(!rs||rs.deckIdx>=rs.deck.length)return;
+  const card=rs.deck[rs.deckIdx];
+  document.getElementById('drawBtn').disabled=true;
+  roomRef.child('raceState').update({
+    pendingCard:card,
+    cardApplied:false,
+    deckIdx:rs.deckIdx+1,
+  });
+}
+
+function showPendingModal(card,canApply=true){
+  const area=document.getElementById('modalArea');
+  if(area.querySelector('.modal-wrap'))return; // 既に表示中
+  const m=MASCOTS[card.mascotId];
+  const wrap=document.createElement('div');wrap.className='modal-wrap';
+  const box=document.createElement('div');box.className='modal-box';
+  box.style.borderColor=m.col;
+  const btnHtml=canApply
+    ?`<button class="mod-btn" style="background:${m.col};color:#000;" onclick="applyCard()">適用する</button>`
+    :`<div style="font-size:12px;color:var(--muted);">ホストが適用中...</div>`;
+  box.innerHTML=`<div class="mod-ico">${card.emoji}</div><div class="mod-ttl">${card.name}</div><div class="mod-tgt">${m.emoji} ${m.name}のカード</div><div class="mod-dsc">${card.desc}</div>${btnHtml}`;
+  wrap.appendChild(box);
+  area.innerHTML='';
+  area.appendChild(wrap);
+  area.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function applyCard(){
+  if(!isHost)return;
+  const rs=snap.raceState;
+  const card=rs.pendingCard;
+  if(!card)return;
+
+  const mPos=rs.mPos.map(p=>({...p}));
+  const mSt=[...rs.mSt];
+  const log=[...(rs.log||[])];
+  const finishOrder=[...(rs.finishOrder||[])];
+  const m=MASCOTS[card.mascotId];
+  const pos=mPos[card.mascotId];
+  const st=mSt[card.mascotId];
+  let msg='';
+
+  if(st==='fallen'&&card.effect!=='recover'){
+    msg=`${m.emoji} <span class="lhi">${m.name}</span> は転倒中のためスキップ`;
+  }else{
+    switch(card.effect){
+      case'forward':{
+        const mv=st==='reversed'?-card.amt:card.amt;
+        pos.x=Math.max(0,pos.x+mv);
+        msg=`${m.emoji} <span class="lf">${m.name} ${card.amt}マス${st==='reversed'?'（逆走）後退':'前進'}！</span>`;
+        break;
+      }
+      case'back':{
+        const mv=st==='reversed'?card.amt:-card.amt;
+        pos.x=Math.max(0,pos.x+mv);
+        msg=`${m.emoji} <span class="lb">${m.name} ${card.amt}マス後退</span>`;
+        break;
+      }
+      case'fall':{
+        if(st==='normal'){mSt[card.mascotId]='fallen';msg=`${m.emoji} <span class="lfall">${m.name} 転倒💥！</span>`;}
+        else msg=`${m.emoji} ${m.name} は既に転倒中`;
+        break;
+      }
+      case'reverse':{
+        if(st==='reversed'){mSt[card.mascotId]='normal';msg=`${m.emoji} <span class="lrec">${m.name} 正走に戻った</span>`;}
+        else if(st==='normal'){mSt[card.mascotId]='reversed';msg=`${m.emoji} <span class="lrev">${m.name} 逆走モード🔄</span>`;}
+        break;
+      }
+      case'recover':{
+        mSt[card.mascotId]='normal';
+        msg=`${m.emoji} <span class="lrec">${m.name} リカバリー⭐</span>`;
+        break;
+      }
+      case'lane':{
+        pos.lane=(pos.lane+1)%4;
+        msg=`${m.emoji} <span class="llane">${m.name} レーン移動↔️</span>`;
+        break;
+      }
+      case'star':{
+        // 現在位置より先の最初の★マスへ移動
+        const nextStar=STAR_POSITIONS.find(s=>s>pos.x);
+        if(nextStar){
+          pos.x=nextStar;
+          msg=`${m.emoji} <span class="lstar">${m.name} ★マスへジャンプ！⭐→ ${nextStar}マス地点</span>`;
+        }else{
+          pos.x=TRACK_LEN; // ゴールへ
+          msg=`${m.emoji} <span class="lstar">${m.name} ★マスがないのでゴールへ！</span>`;
+        }
+        break;
+      }
+    }
+  }
+
+  log.push(msg);
+
+  // ゴールチェック
+  MASCOTS.forEach((_,i)=>{
+    if(mPos[i].x>=TRACK_LEN&&!finishOrder.includes(MASCOTS[i].id)){
+      finishOrder.push(MASCOTS[i].id);
+      log.push(`${MASCOTS[i].emoji} <span class="lhi">${MASCOTS[i].name}</span> が${finishOrder.length}位でゴール！`);
+    }
+  });
+
+  roomRef.child('raceState').update({mPos,mSt,log,finishOrder,pendingCard:null,cardApplied:true});
+}
+
+// ══════════════════════════════════════════
+//  PROCESS RESULTS  (ホストのみ実行)
+// ══════════════════════════════════════════
+function processResults(){
+  const rs=snap.raceState;
+  let fo=[...(rs.finishOrder||[])];
+  MASCOTS.forEach((_,i)=>{if(!fo.includes(MASCOTS[i].id))fo.push(MASCOTS[i].id);});
+
+  const players=sortedPlayers(snap);
+  const bets=Object.values(snap.bets||{});
+  const playerUpdates={};
+  bets.forEach(bet=>{
+    const rank=fo.indexOf(bet.mascotId)+1;
+    const mult=MULTS[rank-1]||0;
+    const net=Math.floor(bet.amount*mult)-bet.amount;
+    const p=players.find(x=>x.id===bet.playerId);
+    if(p) playerUpdates['players/'+p.id+'/money']=(p.money||500)+net;
+  });
+  playerUpdates['raceState/finishOrder']=fo;
+  playerUpdates['status']='results';
+  roomRef.update(playerUpdates);
+}
+
+// ══════════════════════════════════════════
+//  RESULTS
+// ══════════════════════════════════════════
+function renderResults(){
+  showScr('resultsView');
+  document.getElementById('resLabel').textContent=`RACE ${snap.race} 結果`;
+  const fo=snap.raceState?.finishOrder||[];
+  const players=sortedPlayers(snap);
+  const bets=Object.values(snap.bets||{});
+
+  // ポディウム
+  const pod=document.getElementById('podRow');pod.innerHTML='';
+  [1,0,2,3].forEach((ri,di)=>{
+    if(fo[ri]===undefined)return;
+    const m=MASCOTS[fo[ri]];
+    const it=document.createElement('div');it.className='pod-item';
+    it.innerHTML=`<div class="pod-emo">${m.emoji}</div><div class="pod-nm">${m.name}</div><div class="pod-blk p${di+1}">${['🥇','🥈','🥉','4'][di]}</div>`;
+    pod.appendChild(it);
+  });
+
+  // 配当
+  const pl=document.getElementById('payList');pl.innerHTML='';
+  bets.forEach(bet=>{
+    const p=players.find(x=>x.id===bet.playerId);if(!p)return;
+    const rank=fo.indexOf(bet.mascotId)+1;
+    const mult=MULTS[rank-1]||0;
+    const net=Math.floor(bet.amount*mult)-bet.amount;
+    const bm=MASCOTS[bet.mascotId];
+    const row=document.createElement('div');row.className='pay-row'+(net>0?' win':'');
+    row.innerHTML=`<div class="pay-av" style="background:${p.col}33">${p.emoji}</div><div class="pay-inf"><div class="pay-nm">${p.name}${p.id===myId?' (あなた)':''}</div><div class="pay-dt">${bm.emoji}${bm.name} ${rank}位 x${mult} 賭$${bet.amount}</div></div><div class="pay-amt ${net>=0?'pay-p':'pay-m'}">${net>=0?'+':''}$${net}</div>`;
+    pl.appendChild(row);
+  });
+
+  renderSt('stList',players);
+
+  const isLast=snap.race>=snap.total;
+  if(isHost){
+    document.getElementById('hostNextDiv').style.display='block';
+    document.getElementById('guestNextDiv').style.display='none';
+    document.getElementById('nextBtn').textContent=isLast?'🏆 最終結果へ':`RACE ${snap.race+1}へ →`;
+  }else{
+    document.getElementById('hostNextDiv').style.display='none';
+    document.getElementById('guestNextDiv').style.display='block';
+  }
+}
+
+function hostNext(){
+  if(!isHost)return;
+  if(snap.race>=snap.total){
+    roomRef.update({status:'final'});
+  }else{
+    // 次のレースの公開デッキを再生成
+    const pool=[];
+    MASCOTS.forEach(m=>ALL_CARDS.forEach(c=>pool.push({...c,mascotId:m.id})));
+    shuffle(pool);
+    const publicDeck=pool.slice(0,10);
+    roomRef.update({status:'betting',betIdx:0,bets:{},publicDeck,race:snap.race+1,raceState:null});
+  }
+}
+
+// ══════════════════════════════════════════
+//  FINAL
+// ══════════════════════════════════════════
+function renderFinal(){
+  showScr('finalView');
+  const players=sortedPlayers(snap).sort((a,b)=>b.money-a.money);
+  const w=players[0];
+  document.getElementById('fCrown').textContent=w.emoji;
+  document.getElementById('fWin').textContent=`${w.name} 優勝！`;
+  document.getElementById('fMon').textContent=`最終所持金 $${w.money}`;
+  renderSt('fStands',players);
+  launchFW();
+  if(isHost){
+    document.getElementById('hostRestartDiv').style.display='block';
+    document.getElementById('guestRestartDiv').style.display='none';
+  }else{
+    document.getElementById('hostRestartDiv').style.display='none';
+    document.getElementById('guestRestartDiv').style.display='block';
+  }
+}
+
+function hostRestart(){
+  if(!isHost)return;
+  const players={};
+  sortedPlayers(snap).forEach(p=>{players[p.id]={...p,money:500};});
+  roomRef.update({status:'waiting',race:1,bets:{},betIdx:0,raceState:null,publicDeck:[],players});
+}
+
+// ══════════════════════════════════════════
+//  TRACK RENDER
+// ══════════════════════════════════════════
+function buildTrack(){
+  const wrap=document.getElementById('trackWrap');
+  const t3=document.getElementById('t3d');
+  const bg=document.getElementById('tBg');
+  const W=Math.min(wrap.offsetWidth||350,420);
+  const H=200;
+  t3.style.width=W+'px';
+  bg.style.width=W+'px'; bg.style.height=H+'px'; bg.style.position='relative';
+  bg.innerHTML='';
+
+  for(let i=1;i<4;i++){
+    const l=document.createElement('div');l.className='lane-sep';
+    l.style.top=(i*(H/4))+'px'; bg.appendChild(l);
+  }
+
+  // ★マークをトラックに描画
+  STAR_POSITIONS.forEach(sp=>{
+    const xPct=sp/TRACK_LEN;
+    const xPx=20+xPct*(W-55);
+    for(let lane=0;lane<4;lane++){
+      const lH=H/4;
+      const yPx=18+lane*lH+lH/2-8;
+      const st=document.createElement('div');
+      st.className='star-mark';
+      st.textContent='⭐';
+      st.style.left=xPx+'px';
+      st.style.top=yPx+'px';
+      bg.appendChild(st);
+    }
+  });
+
+  const fin=document.createElement('div');fin.className='finish-bar';
+  for(let c=0;c<10;c++){const fc=document.createElement('div');fc.className='finish-cell';fc.style.background=c%2===0?'#fff':'#000';fc.style.opacity='0.6';fin.appendChild(fc);}
+  bg.appendChild(fin);
+  const srt=document.createElement('div');srt.className='start-bar';bg.appendChild(srt);
+}
+
+function renderMascots(mPos,mSt){
+  const bg=document.getElementById('tBg');
+  bg.querySelectorAll('.mascot-el').forEach(e=>e.remove());
+  const W=bg.offsetWidth||320, H=bg.offsetHeight||200, lH=H/4;
+  MASCOTS.forEach((m,i)=>{
+    const pos=mPos[i], st=mSt[i];
+    const el=document.createElement('div');
+    el.className='mascot-el'+(st==='fallen'?' fallen':'')+(st==='reversed'?' reversed':'');
+    const xp=Math.min(Math.max(pos.x,0),TRACK_LEN);
+    el.style.left=(20+(xp/TRACK_LEN)*(W-55))+'px';
+    el.style.top=(18+pos.lane*lH+lH/2-24)+'px';
+    el.innerHTML=`<span class="m-body">${m.emoji}</span><div class="m-lbl">${m.name.slice(0,4)}</div>`;
+    bg.appendChild(el);
+  });
+}
+
+function updBar(deck,dIdx){
+  const pct=deck&&deck.length>0?((deck.length-dIdx)/deck.length)*100:0;
+  document.getElementById('pFill').style.width=pct+'%';
+  document.getElementById('pCnt').textContent=`${dIdx||0}/${deck?deck.length:0}`;
+}
+
+// ══════════════════════════════════════════
+//  UTILS
+// ══════════════════════════════════════════
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}}
+function setSpd(s,btn){spd=s;document.querySelectorAll('.sp-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function renderSt(id,players){
+  const div=document.getElementById(id);div.innerHTML='';
+  [...players].sort((a,b)=>b.money-a.money).forEach((p,i)=>{
+    const row=document.createElement('div');row.className='st-row';
+    row.innerHTML=`<div class="st-rank ${i===0?'g':''}">${i+1}</div><div class="st-av" style="background:${p.col}33">${p.emoji}</div><div class="st-nm">${p.name}${p.id===myId?' (あなた)':''}</div><div class="st-mn">$${p.money}</div>`;
+    div.appendChild(row);
+  });
+}
+function launchFW(){
+  const fx=['🎆','🎇','✨','🌟','💫','🎉'];
+  const base=document.getElementById('finalView');
+  for(let i=0;i<10;i++){
+    setTimeout(()=>{
+      const el=document.createElement('span');el.className='fw-el';
+      el.textContent=fx[Math.floor(Math.random()*fx.length)];
+      el.style.left=(5+Math.random()*85)+'%';
+      el.style.top=(10+Math.random()*50)+'%';
+      base.appendChild(el);
+      setTimeout(()=>el.remove(),1500);
+    },i*180);
+  }
+}
+function showScr(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
