@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>\uD83D\uDD25 HOT STREAK ONLINE</title>
+<title>🔥 HOT STREAK ONLINE</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 :root{--bg:#0a0a18;--bg2:#111128;--bg3:#1a1a30;--gold:#f5c842;--orange:#ff6b35;--white:#f0f0f0;--muted:#888;--border:rgba(255,255,255,0.12);--r:12px;--rs:8px;}
@@ -82,8 +82,8 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 .sp-row{display:flex;gap:5px;}
 .sp-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:11px;cursor:pointer;}
 .sp-btn.sel{background:var(--gold);color:#000;border-color:var(--gold);}
-.track-wrap{background:#0b1e0b;overflow:hidden;}
-.track-3d{margin:0 auto;transform-style:preserve-3d;transform:perspective(500px) rotateX(44deg);transform-origin:50% 26%;}
+.track-wrap{background:#0b1e0b;overflow:hidden;min-height:260px;}
+.track-3d{margin:0 auto;transform-style:preserve-3d;transform:perspective(500px) rotateX(44deg);transform-origin:50% 26%;min-height:240px;}
 .track-bg{background:#1a3d1a;border:3px solid #c8a200;border-radius:14px;position:relative;overflow:hidden;}
 .lane-sep{position:absolute;left:0;right:0;border-top:1px dashed rgba(255,255,255,0.15);}
 .star-mark{position:absolute;font-size:11px;z-index:2;transform:translateX(-50%);pointer-events:none;}
@@ -152,23 +152,23 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 <!-- LOBBY -->
 <div id="lobby" class="screen active">
   <div class="logo-wrap">
-    <div class="logo">\uD83D\uDD25 HOT <span>STREAK</span></div>
+    <div class="logo">🔥 HOT <span>STREAK</span></div>
     <div class="logo-sub">ONLINE MULTIPLAYER</div>
   </div>
-  <div class="status-bar"><div class="dot on"></div><span id="connStatus">Firebase\u63A5\u7D9A\u4E2D...</span></div>
+  <div class="status-bar"><div class="dot on"></div><span id="connStatus">Firebase接続中...</span></div>
   <div class="card">
-    <div class="card-title">\uD83D\uDC64 \u3042\u306A\u305F\u306E\u540D\u524D</div>
-    <input type="text" id="myName" placeholder="\u30D7\u30EC\u30A4\u30E4\u30FC\u540D" maxlength="12">
+    <div class="card-title">👤 あなたの名前</div>
+    <input type="text" id="myName" placeholder="プレイヤー名" maxlength="12">
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="createRoom()">\uD83C\uDFE0 \u4F5C\u6210</button>
-      <button class="btn btn-blue" onclick="toggleJoin()">\uD83D\uDEAA \u53C2\u52A0</button>
+      <button class="btn btn-primary" onclick="createRoom()">🏠 作成</button>
+      <button class="btn btn-blue" onclick="toggleJoin()">🚪 参加</button>
     </div>
   </div>
   <div id="joinArea" style="display:none;">
     <div class="card">
-      <div class="card-title">\uD83D\uDD11 \u30EB\u30FC\u30E0\u30B3\u30FC\u30C9\u3092\u5165\u529B</div>
-      <input type="text" id="joinCode" placeholder="4\u6841\uFF08\u4F8B: A3F7\uFF09" maxlength="4" style="text-transform:uppercase;letter-spacing:4px;font-size:22px;text-align:center;">
-      <button class="btn btn-blue" onclick="joinRoom()">\u53C2\u52A0\u3059\u308B</button>
+      <div class="card-title">🔑 ルームコードを入力</div>
+      <input type="text" id="joinCode" placeholder="4桁（例: A3F7）" maxlength="4" style="text-transform:uppercase;letter-spacing:4px;font-size:22px;text-align:center;">
+      <button class="btn btn-blue" onclick="joinRoom()">参加する</button>
     </div>
   </div>
 </div>
@@ -176,21 +176,21 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 <!-- WAITING ROOM -->
 <div id="waitingRoom" class="screen">
   <div class="logo-wrap" style="padding:12px 0 8px;">
-    <div class="logo">\uD83D\uDD25 HOT <span>STREAK</span></div>
+    <div class="logo">🔥 HOT <span>STREAK</span></div>
   </div>
   <div class="room-code-box">
     <div class="room-code" id="dispCode">----</div>
-    <div class="room-hint">\u3053\u306E\u30B3\u30FC\u30C9\u3092\u53CB\u9054\u306B\u5171\u6709\u3057\u3088\u3046</div>
-    <button class="btn btn-gray" onclick="copyCode()" style="width:auto;padding:8px 18px;font-size:12px;margin-top:8px;display:inline-block;">\u30B3\u30FC\u30C9\u3092\u30B3\u30D4\u30FC</button>
+    <div class="room-hint">このコードを友達に共有しよう</div>
+    <button class="btn btn-gray" onclick="copyCode()" style="width:auto;padding:8px 18px;font-size:12px;margin-top:8px;display:inline-block;">コードをコピー</button>
   </div>
-  <div class="status-bar"><div class="dot wait"></div><span id="waitStatus">\u53C2\u52A0\u8005\u3092\u5F85\u3063\u3066\u3044\u307E\u3059...</span></div>
-  <div class="sec">\u53C2\u52A0\u8005</div>
+  <div class="status-bar"><div class="dot wait"></div><span id="waitStatus">参加者を待っています...</span></div>
+  <div class="sec">参加者</div>
   <div class="pl-list" id="waitPlayers"></div>
   <div id="hostStartDiv">
-    <button class="btn btn-primary" id="startBtn" onclick="hostStart()" disabled>\u30B2\u30FC\u30E0\u958B\u59CB\uFF082\u4EBA\u4EE5\u4E0A\uFF09</button>
+    <button class="btn btn-primary" id="startBtn" onclick="hostStart()" disabled>ゲーム開始（2人以上）</button>
   </div>
   <div id="guestWaitDiv" style="display:none;">
-    <div class="wait-box"><span class="wait-emoji">\u23F3</span><div class="wait-txt">\u30DB\u30B9\u30C8\u304C\u30B2\u30FC\u30E0\u3092\u958B\u59CB\u3059\u308B\u306E\u3092\u5F85\u3063\u3066\u3044\u307E\u3059</div></div>
+    <div class="wait-box"><span class="wait-emoji">⏳</span><div class="wait-txt">ホストがゲームを開始するのを待っています</div></div>
   </div>
 </div>
 
@@ -198,7 +198,7 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 <div id="betPhase" class="screen">
   <div class="logo-wrap" style="padding:10px 0 6px;">
     <div style="font-size:11px;color:var(--muted);letter-spacing:2px;" id="betLabel">RACE 1</div>
-    <div style="font-size:18px;font-weight:700;color:var(--gold);">\uD83C\uDFB0 \u30D9\u30C3\u30C8\u30D5\u30A7\u30FC\u30BA</div>
+    <div style="font-size:18px;font-weight:700;color:var(--gold);">🎰 ベットフェーズ</div>
   </div>
   <div class="turn-banner">
     <div class="t-av" id="tAv"></div>
@@ -206,37 +206,37 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
     <div class="t-money" id="tMn">$500</div>
   </div>
   <!-- 公開デッキ -->
-  <div class="sec">\uD83D\uDCCB \u30C7\u30C3\u30AD\u306E\u516C\u958B\u30AB\u30FC\u30C9\uFF0810\u679A\uFF09</div>
+  <div class="sec">📋 デッキの公開カード（10枚）</div>
   <div class="cards-scroll" id="publicDeckCards"></div>
   <!-- ベットUI -->
   <div id="myBetArea" style="display:none;">
     <div class="m-grid" id="mGrid"></div>
-    <div class="sec">\uD83D\uDCB0 \u8CED\u3051\u91D1\u984D</div>
+    <div class="sec">💰 賭け金額</div>
     <div class="chips" id="amtChips"></div>
-    <div class="sec">\uD83C\uDCCF \u624B\u672D\u304B\u308901\u679A\u30C7\u30C3\u30AD\u306B\u4ED5\u8FBC\u3080\uFF08\u4EFB\u610F\uFF09<span style="color:var(--muted);font-weight:400;">\u2014 \u4ED6\u306E\u30D7\u30EC\u30A4\u30E4\u30FC\u306B\u306F\u975E\u516C\u958B</span></div>
+    <div class="sec">🃏 手札から01枚デッキに仕込む（任意）<span style="color:var(--muted);font-weight:400;">— 他のプレイヤーには非公開</span></div>
     <div class="cards-scroll" id="handScroll"></div>
     <div style="margin-top:14px;">
-      <button class="btn btn-green" id="confBtn" onclick="submitBet()" disabled>\u78BA\u5B9A\u3059\u308B</button>
+      <button class="btn btn-green" id="confBtn" onclick="submitBet()" disabled>確定する</button>
     </div>
   </div>
   <!-- 待機UI（確定後） -->
   <div id="waitBetArea" style="display:none;">
     <div class="wait-box">
-      <span class="wait-emoji">\u2705</span>
-      <div class="wait-txt">\u78BA\u5B9A\u6E08\u307F\u2014 \u4ED6\u306E\u30D7\u30EC\u30A4\u30E4\u30FC\u3092\u5F85\u3063\u3066\u3044\u307E\u3059...</div>
+      <span class="wait-emoji">✅</span>
+      <div class="wait-txt">確定済み— 他のプレイヤーを待っています...</div>
     </div>
-    <div class="sec">\u30D9\u30C3\u30C8\u72B6\u6CC1</div>
+    <div class="sec">ベット状況</div>
     <div class="pl-list" id="betProgress"></div>
   </div>
   <!-- まだベットしていない -->
   <div id="notYetBetArea" style="display:none;">
     <div class="m-grid" id="mGrid2"></div>
-    <div class="sec">\uD83D\uDCB0 \u8CED\u3051\u91D1\u984D</div>
+    <div class="sec">💰 賭け金額</div>
     <div class="chips" id="amtChips2"></div>
-    <div class="sec">\uD83C\uDCCF \u624B\u672D\u304B\u308901\u679A\u30C7\u30C3\u30AD\u306B\u4ED5\u8FBC\u3080\uFF08\u4EFB\u610F\uFF09</div>
+    <div class="sec">🃏 手札から01枚デッキに仕込む（任意）</div>
     <div class="cards-scroll" id="handScroll2"></div>
     <div style="margin-top:14px;">
-      <button class="btn btn-green" id="confBtn2" onclick="submitBet2()" disabled>\u78BA\u5B9A\u3059\u308B</button>
+      <button class="btn btn-green" id="confBtn2" onclick="submitBet2()" disabled>確定する</button>
     </div>
   </div>
 </div>
@@ -244,11 +244,11 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 <!-- RACE -->
 <div id="raceView" class="screen">
   <div class="race-hdr">
-    <div><div class="r-title" id="rTitle">RACE 1</div><div class="r-sub" id="rSub">\u9032\u884C\u4E2D...</div></div>
+    <div><div class="r-title" id="rTitle">RACE 1</div><div class="r-sub" id="rSub">進行中...</div></div>
     <div class="sp-row">
       <button class="sp-btn sel" onclick="setSpd(1,this)">1x</button>
       <button class="sp-btn" onclick="setSpd(2,this)">2x</button>
-      <button class="sp-btn" onclick="setSpd(0.4,this)">\u9045</button>
+      <button class="sp-btn" onclick="setSpd(0.4,this)">遅</button>
     </div>
   </div>
   <div class="track-wrap" id="trackWrap">
@@ -257,74 +257,74 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
   <div id="modalArea"></div>
   <div class="race-log" id="rLog"></div>
   <div class="deck-row">
-    <span class="d-lbl">\u30C7\u30C3\u30AD</span>
+    <span class="d-lbl">デッキ</span>
     <div class="pbar"><div class="pfill" id="pFill" style="width:100%"></div></div>
     <span class="d-cnt" id="pCnt">0/0</span>
   </div>
   <div id="hostDrawDiv">
-    <button class="btn-draw" id="drawBtn" onclick="hostDraw()">\uD83C\uDCCF \u30AB\u30FC\u30C9\u3092\u3081\u304F\u308B</button>
+    <button class="btn-draw" id="drawBtn" onclick="hostDraw()">🃏 カードをめくる</button>
   </div>
-  <div id="guestDrawDiv" class="non-host-wait" style="display:none;">\u23F3 \u30DB\u30B9\u30C8\u304C\u30AB\u30FC\u30C9\u3092\u3081\u304F\u3063\u3066\u3044\u307E\u3059...</div>
+  <div id="guestDrawDiv" class="non-host-wait" style="display:none;">⏳ ホストがカードをめくっています...</div>
 </div>
 
 <!-- RESULTS -->
 <div id="resultsView" class="screen">
   <div class="logo-wrap" style="padding:10px 0 6px;">
-    <div style="font-size:11px;color:var(--muted);letter-spacing:2px;" id="resLabel">RACE 1 \u7D50\u679C</div>
-    <div style="font-size:18px;font-weight:700;color:var(--gold);">\uD83C\uDFC6 \u30EC\u30FC\u30B9\u7D50\u679C</div>
+    <div style="font-size:11px;color:var(--muted);letter-spacing:2px;" id="resLabel">RACE 1 結果</div>
+    <div style="font-size:18px;font-weight:700;color:var(--gold);">🏆 レース結果</div>
   </div>
   <div class="podium-row" id="podRow"></div>
-  <div class="sec">\uD83D\uDCB8 \u914D\u5F53</div>
+  <div class="sec">💸 配当</div>
   <div id="payList"></div>
-  <div class="sec">\uD83D\uDCCA \u73FE\u5728\u306E\u9806\u4F4D</div>
+  <div class="sec">📊 現在の順位</div>
   <div id="stList"></div>
   <div style="margin-top:16px;" id="hostNextDiv">
-    <button class="btn btn-blue" id="nextBtn" onclick="hostNext()">\u6B21\u306E\u30EC\u30FC\u30B9\u3078 \u2192</button>
+    <button class="btn btn-blue" id="nextBtn" onclick="hostNext()">次のレースへ →</button>
   </div>
-  <div id="guestNextDiv" class="non-host-wait" style="display:none;">\u23F3 \u30DB\u30B9\u30C8\u304C\u6B21\u306E\u30EC\u30FC\u30B9\u3092\u958B\u59CB\u3059\u308B\u306E\u3092\u5F85\u3063\u3066\u3044\u307E\u3059...</div>
+  <div id="guestNextDiv" class="non-host-wait" style="display:none;">⏳ ホストが次のレースを開始するのを待っています...</div>
 </div>
 
 <!-- FINAL -->
 <div id="finalView" class="screen">
-  <span class="f-crown" id="fCrown">\uD83C\uDFC6</span>
+  <span class="f-crown" id="fCrown">🏆</span>
   <div class="f-winner" id="fWin"></div>
   <div class="f-money" id="fMon"></div>
-  <div class="sec">\uD83D\uDCCA \u6700\u7D42\u9806\u4F4D</div>
+  <div class="sec">📊 最終順位</div>
   <div id="fStands"></div>
   <div style="margin-top:20px;padding-bottom:20px;" id="hostRestartDiv">
-    <button class="btn btn-primary" onclick="hostRestart()">\u3082\u3046\u4E00\u5EA6\u30D7\u30EC\u30A4</button>
+    <button class="btn btn-primary" onclick="hostRestart()">もう一度プレイ</button>
   </div>
-  <div id="guestRestartDiv" class="non-host-wait" style="display:none;">\u23F3 \u30DB\u30B9\u30C8\u304C\u65B0\u3057\u3044\u30B2\u30FC\u30E0\u3092\u958B\u59CB\u3059\u308B\u306E\u3092\u5F85\u3063\u3066\u3044\u307E\u3059...</div>
+  <div id="guestRestartDiv" class="non-host-wait" style="display:none;">⏳ ホストが新しいゲームを開始するのを待っています...</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 <script>
 var MASCOTS=[
-  {id:0,name:'\u30D5\u30E9\u30A4\u30D9\u30A2',emoji:'\uD83D\uDC3B',col:'#ff6b35'},
-  {id:1,name:'\u30ED\u30B1\u30D5\u30ED\u30C3\u30B0',emoji:'\uD83D\uDC38',col:'#4aff84'},
-  {id:2,name:'\u30B9\u30FC\u30D1\u30FC\u30B7\u30E3\u30FC\u30AF',emoji:'\uD83E\uDD88',col:'#4ac8ff'},
-  {id:3,name:'\u30DE\u30B8\u30D0\u30CB\u30FC',emoji:'\uD83D\uDC30',col:'#cc88ff'},
+  {id:0,name:'フライベア',emoji:'🐻',col:'#ff6b35'},
+  {id:1,name:'ロケフロッグ',emoji:'🐸',col:'#4aff84'},
+  {id:2,name:'スーパーシャーク',emoji:'🦈',col:'#4ac8ff'},
+  {id:3,name:'マジバニー',emoji:'🐰',col:'#cc88ff'},
 ];
 // lane: 0=top(bear), 1=frog, 2=shark, 3=bottom(bunny)
 // bear(0): right only (lane+1), bunny(3): left only (lane-1)
 // frog(1)/shark(2): both directions, but capped at 0-3
 
 var ALL_CARDS=[
-  {id:'fw3',name:'\u5927\u524D\u9032',emoji:'\uD83D\uDE80',desc:'3\u30DE\u30B9\u524D\u9032',effect:'forward',amt:3},
-  {id:'fw2',name:'\u524D\u9032',emoji:'\u27A1\uFE0F',desc:'2\u30DE\u30B9\u524D\u9032',effect:'forward',amt:2},
-  {id:'fw1',name:'\u5C0F\u524D\u9032',emoji:'\u25B6\uFE0F',desc:'1\u30DE\u30B9\u524D\u9032',effect:'forward',amt:1},
-  {id:'bk2',name:'\u5F8C\u9000',emoji:'\u2B05\uFE0F',desc:'2\u30DE\u30B9\u5F8C\u9000',effect:'back',amt:2},
-  {id:'bk1',name:'\u5C0F\u5F8C\u9000',emoji:'\u25C0\uFE0F',desc:'1\u30DE\u30B9\u5F8C\u9000',effect:'back',amt:1},
-  {id:'fall',name:'\u8EE2\u5012\uFF01',emoji:'\uD83D\uDCA5',desc:'\u8EE2\u5012\u30FB\u6B21\u306E1\u56DE\u306F\u5F37\u52361\u30DE\u30B9',effect:'fall',amt:0},
-  {id:'rev',name:'\u9006\u8D70',emoji:'\uD83D\uDD04',desc:'\u9032\u884C\u65B9\u5411\u304C\u9006\u306B\u306A\u308B',effect:'reverse',amt:0},
-  {id:'rec',name:'\u30EA\u30AB\u30D0\u30EA\u30FC',emoji:'\u2B50',desc:'\u8EE2\u5012/\u9006\u8D70\u304B\u3089\u56DE\u5FA9',effect:'recover',amt:0},
-  {id:'lane_r',name:'\u53F3\u30EC\u30FC\u30F3\u79FB\u52D5',emoji:'\u27A1\uFE0F\uD83C\uDFCE',desc:'\u53F3\u306E\u30EC\u30FC\u30F3\u3078\u79FB\u52D5',effect:'lane_r',amt:0},
-  {id:'lane_l',name:'\u5DE6\u30EC\u30FC\u30F3\u79FB\u52D5',emoji:'\u2B05\uFE0F\uD83C\uDFCE',desc:'\u5DE6\u306E\u30EC\u30FC\u30F3\u3078\u79FB\u52D5',effect:'lane_l',amt:0},
-  {id:'star',name:'\u2605\u30B8\u30E3\u30F3\u30D7',emoji:'\uD83C\uDF1F',desc:'\u6B21\u306E\u2605\u30DE\u30B9\u307E\u3067\u79FB\u52D5',effect:'star',amt:0},
+  {id:'fw3',name:'大前進',emoji:'🚀',desc:'3マス前進',effect:'forward',amt:3},
+  {id:'fw2',name:'前進',emoji:'➡️',desc:'2マス前進',effect:'forward',amt:2},
+  {id:'fw1',name:'小前進',emoji:'▶️',desc:'1マス前進',effect:'forward',amt:1},
+  {id:'bk2',name:'後退',emoji:'⬅️',desc:'2マス後退',effect:'back',amt:2},
+  {id:'bk1',name:'小後退',emoji:'◀️',desc:'1マス後退',effect:'back',amt:1},
+  {id:'fall',name:'転倒！',emoji:'💥',desc:'転倒・次の1回は強制1マス',effect:'fall',amt:0},
+  {id:'rev',name:'逆走',emoji:'🔄',desc:'進行方向が逆になる',effect:'reverse',amt:0},
+  {id:'rec',name:'リカバリー',emoji:'⭐',desc:'転倒/逆走から回復',effect:'recover',amt:0},
+  {id:'lane_r',name:'右レーン移動',emoji:'➡️🏎',desc:'右のレーンへ移動',effect:'lane_r',amt:0},
+  {id:'lane_l',name:'左レーン移動',emoji:'⬅️🏎',desc:'左のレーンへ移動',effect:'lane_l',amt:0},
+  {id:'star',name:'★ジャンプ',emoji:'🌟',desc:'次の★マスまで移動',effect:'star',amt:0},
 ];
 var P_COLS=['#ff6b35','#4ac8ff','#4aff84','#cc88ff','#ffd700','#ff88aa','#44ddcc','#ffaa44','#aa88ff','#88ff88'];
-var P_EMO=['\uD83E\uDD8A','\uD83D\uDC3A','\uD83D\uDC3C','\uD83E\uDD81','\uD83D\uDC2F','\uD83E\uDDB8','\uD83D\uDC09','\uD83E\uDD84','\uD83D\uDC28','\uD83D\uDC3B\u200D\u2744\uFE0F'];
+var P_EMO=['🦊','🐺','🐼','🦁','🐯','🦸','🐉','🦄','🐨','🐻‍❄️'];
 var MULTS=[3,1.5,0.5,0];
 var TRACK_LEN=10;
 var STAR_POS=[5,10];
@@ -352,9 +352,9 @@ window.addEventListener('load',function(){
     firebase.initializeApp(FIREBASE_CONFIG);
     db=firebase.database();
     db.ref('.info/connected').on('value',function(s){
-      document.getElementById('connStatus').textContent=s.val()?'Firebase\u63A5\u7D9A\u6E08\u307F':'\u63A5\u7D9A\u4E2D...';
+      document.getElementById('connStatus').textContent=s.val()?'Firebase接続済み':'接続中...';
     });
-  }catch(e){alert('Firebase\u521D\u671F\u5316\u30A8\u30E9\u30FC:'+e.message);}
+  }catch(e){alert('Firebase初期化エラー:'+e.message);}
 });
 
 function genCode(){
@@ -372,18 +372,22 @@ function toggleJoin(){
   a.style.display=a.style.display==='none'?'block':'none';
 }
 function copyCode(){
-  if(navigator.clipboard){navigator.clipboard.writeText(roomCode).then(function(){alert('\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F: '+roomCode);});}
-  else{alert('\u30B3\u30FC\u30C9: '+roomCode);}
+  if(navigator.clipboard){navigator.clipboard.writeText(roomCode).then(function(){alert('コピーしました: '+roomCode);});}
+  else{alert('コード: '+roomCode);}
 }
 function showScr(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  if(id==='raceView')setTimeout(buildTrack,100);
+  // raceView表示時はtrackを必ず再構築（表示後に幅が確定するため）
+  if(id==='raceView'){
+    trackBuilt=false;
+    setTimeout(function(){buildTrack();trackBuilt=true;},80);
+  }
 }
 
 function createRoom(){
-  var name=(document.getElementById('myName').value||'\u30DB\u30B9\u30C8').trim();
+  var name=(document.getElementById('myName').value||'ホスト').trim();
   myId=genId();myName=name;isHost=true;roomCode=genCode();
   roomRef=db.ref('rooms/'+roomCode);
   var player={id:myId,name:name,emoji:P_EMO[0],col:P_COLS[0],money:500,isHost:true};
@@ -408,16 +412,16 @@ function createRoom(){
 
 function joinRoom(){
   var code=(document.getElementById('joinCode').value||'').trim().toUpperCase();
-  if(code.length!==4){alert('4\u6841\u306E\u30B3\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044');return;}
-  var name=(document.getElementById('myName').value||'\u30B2\u30B9\u30C8').trim();
+  if(code.length!==4){alert('4桁のコードを入力してください');return;}
+  var name=(document.getElementById('myName').value||'ゲスト').trim();
   myId=genId();myName=name;isHost=false;roomCode=code;
   roomRef=db.ref('rooms/'+code);
   roomRef.once('value').then(function(s){
     var data=s.val();
-    if(!data){alert('\u30EB\u30FC\u30E0\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093');return;}
-    if(data.status!=='waiting'){alert('\u3053\u306E\u30EB\u30FC\u30E0\u306F\u30B2\u30FC\u30E0\u958B\u59CB\u6E08\u307F\u3067\u3059');return;}
+    if(!data){alert('ルームが見つかりません');return;}
+    if(data.status!=='waiting'){alert('このルームはゲーム開始済みです');return;}
     var existing=Object.values(data.players||{});
-    if(existing.length>=10){alert('\u6E80\u54E1\u3067\u3059');return;}
+    if(existing.length>=10){alert('満員です');return;}
     var idx=existing.length;
     var player={id:myId,name:name,emoji:P_EMO[idx],col:P_COLS[idx],money:500,isHost:false};
     roomRef.child('players/'+myId).set(player).then(function(){
@@ -455,7 +459,7 @@ function renderWaiting(){
     r.innerHTML='<div class="pl-dot" style="background:'+p.col+'"></div><div class="pl-name">'+p.name+'</div>'+(p.isHost?'<span class="badge badge-host">HOST</span>':'')+(p.id===myId?'<span class="badge badge-you">YOU</span>':'');
     list.appendChild(r);
   });
-  document.getElementById('waitStatus').textContent=players.length+'\u4EBA\u304C\u53C2\u52A0\u4E2D';
+  document.getElementById('waitStatus').textContent=players.length+'人が参加中';
   if(isHost){
     document.getElementById('hostStartDiv').style.display='block';
     document.getElementById('guestWaitDiv').style.display='none';
@@ -488,7 +492,7 @@ function renderBetting(){
   var av=document.getElementById('tAv');
   av.textContent=me.emoji;av.style.background=me.col+'33';
   document.getElementById('tNm').textContent=me.name;
-  document.getElementById('tDsc').textContent='\u3042\u306A\u305F\u306E\u30D9\u30C3\u30C8';
+  document.getElementById('tDsc').textContent='あなたのベット';
   document.getElementById('tMn').textContent='$'+me.money;
 
   // 
@@ -501,7 +505,7 @@ function renderBetting(){
     players.forEach(function(p){
       var done=!!bets[p.id];
       var r=document.createElement('div');r.className='pl-row';
-      r.innerHTML='<div class="pl-dot" style="background:'+p.col+'"></div><div class="pl-name">'+p.name+'</div><span class="badge '+(done?'badge-done':'')+'">'+( done?'\u2705':'\u23F3')+'</span>';
+      r.innerHTML='<div class="pl-dot" style="background:'+p.col+'"></div><div class="pl-name">'+p.name+'</div><span class="badge '+(done?'badge-done':'')+'">'+( done?'✅':'⏳')+'</span>';
       prog.appendChild(r);
     });
   }
@@ -555,7 +559,7 @@ function buildMyBetUI2(player){
   var g=document.getElementById('mGrid2');g.innerHTML='';
   MASCOTS.forEach(function(m){
     var el=document.createElement('div');el.className='m-card';el.id='mc2_'+m.id;
-    el.innerHTML='<span class="m-emo">'+m.emoji+'</span><div class="m-nm">'+m.name+'</div><div class="m-od">1\u4F4D x3 / 2\u4F4D x1.5</div>';
+    el.innerHTML='<span class="m-emo">'+m.emoji+'</span><div class="m-nm">'+m.name+'</div><div class="m-od">1位 x3 / 2位 x1.5</div>';
     (function(mid){el.onclick=function(){pickM2(mid);};})(m.id);
     g.appendChild(el);
   });
@@ -571,7 +575,7 @@ function buildMyBetUI2(player){
 
   buildHandUI2();
   document.getElementById('confBtn2').disabled=true;
-  document.getElementById('confBtn2').textContent='\u78BA\u5B9A\u3059\u308B';
+  document.getElementById('confBtn2').textContent='確定する';
 }
 
 function buildHand(){
@@ -585,7 +589,7 @@ function buildHandUI2(){
   var sc=document.getElementById('handScroll2');sc.innerHTML='';
   var none=document.createElement('div');
   none.className='c-card none-card sel';
-  none.innerHTML='<span class="c-ico">\u270B</span><div class="c-ttl">\u4ED5\u8FBC\u307E\u306A\u3044</div><div class="c-dsc">\u79D8\u5BC6\u30AB\u30FC\u30C9\u306A\u3057</div>';
+  none.innerHTML='<span class="c-ico">✋</span><div class="c-ttl">仕込まない</div><div class="c-dsc">秘密カードなし</div>';
   none.onclick=function(){sInjCard2=null;sc.querySelectorAll('.c-card').forEach(function(c){c.classList.remove('sel');});none.classList.add('sel');};
   sc.appendChild(none);
   myHand.forEach(function(cd){
@@ -616,11 +620,11 @@ function chkBet2(){document.getElementById('confBtn2').disabled=!(sMas2!==null&&
 function submitBet2(){
   if(sMas2===null||sAmt2===null)return;
   var btn=document.getElementById('confBtn2');
-  btn.disabled=true;btn.textContent='\u9001\u4FE1\u4E2D...';
+  btn.disabled=true;btn.textContent='送信中...';
   var bet={playerId:myId,mascotId:sMas2,amount:sAmt2,inj:sInjCard2||null};
   roomRef.child('bets/'+myId).set(bet).catch(function(e){
-    btn.disabled=false;btn.textContent='\u78BA\u5B9A\u3059\u308B';
-    alert('\u9001\u4FE1\u30A8\u30E9\u30FC: '+e.message);
+    btn.disabled=false;btn.textContent='確定する';
+    alert('送信エラー: '+e.message);
   });
 }
 // submitBet
@@ -646,7 +650,7 @@ function renderRacing(){
   var rs=snap.raceState;
   if(!rs)return;
   document.getElementById('rTitle').textContent='RACE '+snap.race;
-  if(!trackBuilt){buildTrack();trackBuilt=true;}
+  // buildTrackはshowScr内で非同期処理済み
   renderMascots(rs.mPos,rs.mSt,rs.retired||[]);
   updBar(rs.deck,rs.deckIdx);
   var logs=rs.log||[];
@@ -658,12 +662,12 @@ function renderRacing(){
   var done=(rs.finishOrder&&rs.finishOrder.length+((rs.retired||[]).length)>=MASCOTS.length)||(rs.deckIdx>=rs.deck.length);
   if(done){
     document.getElementById('drawBtn').disabled=true;
-    document.getElementById('drawBtn').innerHTML='\uD83C\uDFC1 \u30EC\u30FC\u30B9\u7D42\u4E86\uFF01';
-    document.getElementById('rSub').textContent='\uD83C\uDFC1 \u30EC\u30FC\u30B9\u7D42\u4E86\uFF01';
+    document.getElementById('drawBtn').innerHTML='🏁 レース終了！';
+    document.getElementById('rSub').textContent='🏁 レース終了！';
     if(isHost&&snap.status==='racing')processResults();
     return;
   }
-  document.getElementById('rSub').textContent='\u30AB\u30FC\u30C9 '+rs.deckIdx+'/'+rs.deck.length;
+  document.getElementById('rSub').textContent='カード '+rs.deckIdx+'/'+rs.deck.length;
   if(isHost){
     document.getElementById('hostDrawDiv').style.display='block';
     document.getElementById('guestDrawDiv').style.display='none';
@@ -672,7 +676,7 @@ function renderRacing(){
     }else{
       document.getElementById('modalArea').innerHTML='';
       document.getElementById('drawBtn').disabled=false;
-      document.getElementById('drawBtn').innerHTML='\uD83C\uDCCF \u30AB\u30FC\u30C9\u3092\u3081\u304F\u308B';
+      document.getElementById('drawBtn').innerHTML='🃏 カードをめくる';
     }
   }else{
     document.getElementById('hostDrawDiv').style.display='none';
@@ -699,9 +703,9 @@ function showPendingModal(card,canApply){
   var box=document.createElement('div');box.className='modal-box';
   box.style.borderColor=m.col;
   var btnHtml=canApply
-    ?'<button class="mod-btn" style="background:'+m.col+';color:#000;" onclick="applyCard()">\u9069\u7528\u3059\u308B</button>'
-    :'<div style="font-size:12px;color:var(--muted);">\u30DB\u30B9\u30C8\u304C\u9069\u7528\u4E2D...</div>';
-  box.innerHTML='<div class="mod-ico">'+card.emoji+'</div><div class="mod-ttl">'+card.name+'</div><div class="mod-tgt">'+m.emoji+' '+m.name+'\u306E\u30AB\u30FC\u30C9</div><div class="mod-dsc">'+card.desc+'</div>'+btnHtml;
+    ?'<button class="mod-btn" style="background:'+m.col+';color:#000;" onclick="applyCard()">適用する</button>'
+    :'<div style="font-size:12px;color:var(--muted);">ホストが適用中...</div>';
+  box.innerHTML='<div class="mod-ico">'+card.emoji+'</div><div class="mod-ttl">'+card.name+'</div><div class="mod-tgt">'+m.emoji+' '+m.name+'のカード</div><div class="mod-dsc">'+card.desc+'</div>'+btnHtml;
   wrap.appendChild(box);area.innerHTML='';area.appendChild(wrap);
   area.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
@@ -724,7 +728,7 @@ function applyCard(){
 
   // 
   if(retired.indexOf(card.mascotId)>=0){
-    msg=m.emoji+' <span class="lhi">'+m.name+'</span> \u306F\u6557\u9000\u6E08\u307F\u306E\u305F\u3081\u30B9\u30AD\u30C3\u30D7';
+    msg=m.emoji+' <span class="lhi">'+m.name+'</span> は敗退済みのためスキップ';
     log.push(msg);
     roomRef.child('raceState').update({mPos:mPos,mSt:mSt,log:log,finishOrder:finishOrder,retired:retired,pendingCard:null,cardApplied:true});
     return;
@@ -734,34 +738,34 @@ function applyCard(){
     // 1
     var mv1=1;
     pos.x=Math.max(0,pos.x+mv1);
-    msg=m.emoji+' <span class="lfall">'+m.name+' \u8EE2\u5012\u4E2D\u30001\u30DE\u30B9\u3060\u3051\u9032\u3080</span>';
+    msg=m.emoji+' <span class="lfall">'+m.name+' 転倒中　1マスだけ進む</span>';
   }else{
     switch(card.effect){
       case'forward':{
         var mv=st==='reversed'?-card.amt:card.amt;
         pos.x=Math.max(0,pos.x+mv);
-        msg=m.emoji+' <span class="lf">'+m.name+' '+card.amt+'\u30DE\u30B9'+(st==='reversed'?'\uFF08\u9006\u8D70\uFF09\u5F8C\u9000':'\u524D\u9032')+'!</span>';
+        msg=m.emoji+' <span class="lf">'+m.name+' '+card.amt+'マス'+(st==='reversed'?'（逆走）後退':'前進')+'!</span>';
         break;
       }
       case'back':{
         var mv=st==='reversed'?card.amt:-card.amt;
         pos.x=Math.max(0,pos.x+mv);
-        msg=m.emoji+' <span class="lb">'+m.name+' '+card.amt+'\u30DE\u30B9\u5F8C\u9000</span>';
+        msg=m.emoji+' <span class="lb">'+m.name+' '+card.amt+'マス後退</span>';
         break;
       }
       case'fall':{
-        if(st==='normal'){mSt[card.mascotId]='fallen';msg=m.emoji+' <span class="lfall">'+m.name+' \u8EE2\u5012\uD83D\uDCA5!</span>';}
-        else{msg=m.emoji+' '+m.name+' \u306F\u65E2\u306B\u8EE2\u5012\u4E2D';}
+        if(st==='normal'){mSt[card.mascotId]='fallen';msg=m.emoji+' <span class="lfall">'+m.name+' 転倒💥!</span>';}
+        else{msg=m.emoji+' '+m.name+' は既に転倒中';}
         break;
       }
       case'reverse':{
-        if(st==='reversed'){mSt[card.mascotId]='normal';msg=m.emoji+' <span class="lrec">'+m.name+' \u6B63\u8D70\u306B\u623B\u3063\u305F</span>';}
-        else if(st==='normal'){mSt[card.mascotId]='reversed';msg=m.emoji+' <span class="lrev">'+m.name+' \u9006\u8D70\u30E2\u30FC\u30C9\uD83D\uDD04</span>';}
+        if(st==='reversed'){mSt[card.mascotId]='normal';msg=m.emoji+' <span class="lrec">'+m.name+' 正走に戻った</span>';}
+        else if(st==='normal'){mSt[card.mascotId]='reversed';msg=m.emoji+' <span class="lrev">'+m.name+' 逆走モード🔄</span>';}
         break;
       }
       case'recover':{
         mSt[card.mascotId]='normal';
-        msg=m.emoji+' <span class="lrec">'+m.name+' \u30EA\u30AB\u30D0\u30EA\u30FC\u2B50</span>';
+        msg=m.emoji+' <span class="lrec">'+m.name+' リカバリー⭐</span>';
         break;
       }
       case'lane_r':
@@ -769,10 +773,10 @@ function applyCard(){
         var dir=card.effect==='lane_r'?1:-1;
         var mid=card.mascotId;
         // (0)(3)
-        if(mid===0&&dir===-1){msg=m.emoji+' <span class="llane">'+m.name+' \u306F\u53F3\u9694\u9650\u306E\u305F\u3081\u79FB\u52D5\u4E0D\u53EF</span>';break;}
-        if(mid===3&&dir===1){msg=m.emoji+' <span class="llane">'+m.name+' \u306F\u5DE6\u9694\u9650\u306E\u305F\u3081\u79FB\u52D5\u4E0D\u53EF</span>';break;}
+        if(mid===0&&dir===-1){msg=m.emoji+' <span class="llane">'+m.name+' は右隔限のため移動不可</span>';break;}
+        if(mid===3&&dir===1){msg=m.emoji+' <span class="llane">'+m.name+' は左隔限のため移動不可</span>';break;}
         var newLane=pos.lane+dir;
-        if(newLane<0||newLane>3){msg=m.emoji+' <span class="llane">'+m.name+' \u30EC\u30FC\u30F3\u5916\u306E\u305F\u3081\u79FB\u52D5\u4E0D\u53EF</span>';break;}
+        if(newLane<0||newLane>3){msg=m.emoji+' <span class="llane">'+m.name+' レーン外のため移動不可</span>';break;}
         // 
         var targetIdx=-1;
         for(var ti=0;ti<MASCOTS.length;ti++){
@@ -785,25 +789,25 @@ function applyCard(){
           if(mSt[targetIdx]==='fallen'){
             //   
             retired.push(targetIdx);
-            log.push(tm.emoji+' <span class="lret">'+tm.name+' \u6557\u9000\uD83D\uDEA8!</span>');
-            msg=m.emoji+' <span class="llane">'+m.name+' \u306E\u30EC\u30FC\u30F3\u79FB\u52D5\u5931\u6557\uFF08\u8FFB\u7A81\uFF09</span>';
+            log.push(tm.emoji+' <span class="lret">'+tm.name+' 敗退🚨!</span>');
+            msg=m.emoji+' <span class="llane">'+m.name+' のレーン移動失敗（迻突）</span>';
           }else{
             // 
             mSt[targetIdx]='fallen';
-            log.push(tm.emoji+' <span class="lfall">'+tm.name+' \u8FFB\u7A81\u3055\u308C\u8EE2\u5012\uD83D\uDCA5!</span>');
-            msg=m.emoji+' <span class="llane">'+m.name+' \u306E\u30EC\u30FC\u30F3\u79FB\u52D5\u5931\u6557\uFF08\u8FFB\u7A81\uFF09</span>';
+            log.push(tm.emoji+' <span class="lfall">'+tm.name+' 迻突され転倒💥!</span>');
+            msg=m.emoji+' <span class="llane">'+m.name+' のレーン移動失敗（迻突）</span>';
           }
         }else{
           pos.lane=newLane;
-          msg=m.emoji+' <span class="llane">'+m.name+' \u30EC\u30FC\u30F3'+(dir>0?'\u53F3':'\u5DE6')+'\u3078\u79FB\u52D5\u2194\uFE0F</span>';
+          msg=m.emoji+' <span class="llane">'+m.name+' レーン'+(dir>0?'右':'左')+'へ移動↔️</span>';
         }
         break;
       }
       case'star':{
         var nextStar=null;
         for(var si=0;si<STAR_POS.length;si++){if(STAR_POS[si]>pos.x){nextStar=STAR_POS[si];break;}}
-        if(nextStar){pos.x=nextStar;msg=m.emoji+' <span class="lstar">'+m.name+' \u2605\u30DE\u30B9\u3078\u30B8\u30E3\u30F3\u30D7! '+nextStar+'\u30DE\u30B9\u5730\u70B9</span>';}
-        else{pos.x=TRACK_LEN;msg=m.emoji+' <span class="lstar">'+m.name+' \u30B4\u30FC\u30EB\u3078\u30B8\u30E3\u30F3\u30D7!</span>';}
+        if(nextStar){pos.x=nextStar;msg=m.emoji+' <span class="lstar">'+m.name+' ★マスへジャンプ! '+nextStar+'マス地点</span>';}
+        else{pos.x=TRACK_LEN;msg=m.emoji+' <span class="lstar">'+m.name+' ゴールへジャンプ!</span>';}
         break;
       }
     }
@@ -815,7 +819,7 @@ function applyCard(){
   MASCOTS.forEach(function(_,i){
     if(mPos[i].x>=TRACK_LEN&&finishOrder.indexOf(MASCOTS[i].id)<0&&retired.indexOf(i)<0){
       finishOrder.push(MASCOTS[i].id);
-      log.push(MASCOTS[i].emoji+' <span class="lhi">'+MASCOTS[i].name+'</span> \u304C'+finishOrder.length+'\u4F4D\u3067\u30B4\u30FC\u30EB!');
+      log.push(MASCOTS[i].emoji+' <span class="lhi">'+MASCOTS[i].name+'</span> が'+finishOrder.length+'位でゴール!');
     }
   });
 
@@ -856,14 +860,14 @@ function mPos_sort(mPos,i){return mPos[i]?mPos[i].x:0;}
 // ===== RESULTS =====
 function renderResults(){
   showScr('resultsView');
-  document.getElementById('resLabel').textContent='RACE '+snap.race+' \u7D50\u679C';
+  document.getElementById('resLabel').textContent='RACE '+snap.race+' 結果';
   var fo=(snap.raceState&&snap.raceState.finishOrder)||[];
   var players=sortedPlayers(snap);
   var bets=Object.values(snap.bets||{});
 
   var pod=document.getElementById('podRow');pod.innerHTML='';
   var podOrder=[1,0,2,3];
-  var podLabels=['\uD83E\uDD47','\uD83E\uDD48','\uD83E\uDD49','4'];
+  var podLabels=['🥇','🥈','🥉','4'];
   var podCls=['p1','p2','p3','p4'];
   podOrder.forEach(function(ri,di){
     if(fo[ri]===undefined)return;
@@ -881,7 +885,7 @@ function renderResults(){
     var net=Math.floor(bet.amount*mult)-bet.amount;
     var bm=MASCOTS[bet.mascotId];
     var row=document.createElement('div');row.className='pay-row'+(net>0?' win':'');
-    row.innerHTML='<div class="pay-av" style="background:'+p.col+'33">'+p.emoji+'</div><div class="pay-inf"><div class="pay-nm">'+p.name+(p.id===myId?' (\u3042\u306A\u305F)':'')+'</div><div class="pay-dt">'+bm.emoji+bm.name+' '+rank+'\u4F4D x'+mult+' \u8CED$'+bet.amount+'</div></div><div class="pay-amt '+(net>=0?'pay-p':'pay-m')+'">'+(net>=0?'+':'')+'$'+net+'</div>';
+    row.innerHTML='<div class="pay-av" style="background:'+p.col+'33">'+p.emoji+'</div><div class="pay-inf"><div class="pay-nm">'+p.name+(p.id===myId?' (あなた)':'')+'</div><div class="pay-dt">'+bm.emoji+bm.name+' '+rank+'位 x'+mult+' 賭$'+bet.amount+'</div></div><div class="pay-amt '+(net>=0?'pay-p':'pay-m')+'">'+(net>=0?'+':'')+'$'+net+'</div>';
     pl.appendChild(row);
   });
 
@@ -890,7 +894,7 @@ function renderResults(){
   if(isHost){
     document.getElementById('hostNextDiv').style.display='block';
     document.getElementById('guestNextDiv').style.display='none';
-    document.getElementById('nextBtn').textContent=isLast?'\uD83C\uDFC6 \u6700\u7D42\u7D50\u679C\u3078':'RACE '+(snap.race+1)+'\u3078 \u2192';
+    document.getElementById('nextBtn').textContent=isLast?'🏆 最終結果へ':'RACE '+(snap.race+1)+'へ →';
   }else{
     document.getElementById('hostNextDiv').style.display='none';
     document.getElementById('guestNextDiv').style.display='block';
@@ -913,8 +917,8 @@ function renderFinal(){
   var players=sortedPlayers(snap).sort(function(a,b){return b.money-a.money;});
   var w=players[0];
   document.getElementById('fCrown').textContent=w.emoji;
-  document.getElementById('fWin').textContent=w.name+' \u512A\u52DD!';
-  document.getElementById('fMon').textContent='\u6700\u7D42\u6240\u6301\u91D1 $'+w.money;
+  document.getElementById('fWin').textContent=w.name+' 優勝!';
+  document.getElementById('fMon').textContent='最終所持金 $'+w.money;
   renderSt('fStands',players);
   launchFW();
   if(isHost){
@@ -938,7 +942,9 @@ function buildTrack(){
   var wrap=document.getElementById('trackWrap');
   var t3=document.getElementById('t3d');
   var bg=document.getElementById('tBg');
-  var W=Math.min(wrap.offsetWidth||350,440);
+  // offsetWidthが0の場合はbody幅から取得
+  var W=Math.min((wrap.offsetWidth||document.body.offsetWidth||360)-8,440);
+  if(W<100)W=340;
   var H=240; // 4
   t3.style.width=W+'px';
   bg.style.width=W+'px';bg.style.height=H+'px';bg.style.position='relative';
@@ -955,7 +961,7 @@ function buildTrack(){
     for(var lane=0;lane<4;lane++){
       var yPx=4+lane*lH+lH/2-8;
       var st=document.createElement('div');st.className='star-mark';
-      st.textContent='\u2B50';st.style.left=xPx+'px';st.style.top=yPx+'px';
+      st.textContent='⭐';st.style.left=xPx+'px';st.style.top=yPx+'px';
       bg.appendChild(st);
     }
   });
@@ -967,9 +973,10 @@ function buildTrack(){
 
 function renderMascots(mPos,mSt,retired){
   var bg=document.getElementById('tBg');
+  if(!bg.style.width||bg.style.width==='0px'){buildTrack();}
   bg.querySelectorAll('.mascot-el').forEach(function(e){e.remove();});
-  var W=bg.offsetWidth||320;
-  var H=bg.offsetHeight||240;
+  var W=bg.offsetWidth||parseInt(bg.style.width)||320;
+  var H=bg.offsetHeight||parseInt(bg.style.height)||240;
   var lH=H/4;
   MASCOTS.forEach(function(m,i){
     var pos=mPos[i];var st=mSt[i];
@@ -1004,13 +1011,13 @@ function renderSt(id,players){
   var sorted=players.slice().sort(function(a,b){return b.money-a.money;});
   sorted.forEach(function(p,i){
     var row=document.createElement('div');row.className='st-row';
-    row.innerHTML='<div class="st-rank '+(i===0?'g':'')+'">'+( i+1)+'</div><div class="st-av" style="background:'+p.col+'33">'+p.emoji+'</div><div class="st-nm">'+p.name+(p.id===myId?' (\u3042\u306A\u305F)':'')+'</div><div class="st-mn">$'+p.money+'</div>';
+    row.innerHTML='<div class="st-rank '+(i===0?'g':'')+'">'+( i+1)+'</div><div class="st-av" style="background:'+p.col+'33">'+p.emoji+'</div><div class="st-nm">'+p.name+(p.id===myId?' (あなた)':'')+'</div><div class="st-mn">$'+p.money+'</div>';
     div.appendChild(row);
   });
 }
 
 function launchFW(){
-  var fx=['\uD83C\uDF86','\uD83C\uDF87','\u2728','\uD83C\uDF1F','\uD83D\uDCAB','\uD83C\uDF89'];
+  var fx=['🎆','🎇','✨','🌟','💫','🎉'];
   var base=document.getElementById('finalView');
   for(var i=0;i<10;i++){
     (function(idx){
