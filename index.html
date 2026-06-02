@@ -84,14 +84,14 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 .sp-btn.sel{background:var(--gold);color:#000;border-color:var(--gold);}
 .track-wrap{background:#0b1e0b;overflow:hidden;min-height:260px;}
 .track-3d{margin:0 auto;transform-style:preserve-3d;transform:perspective(500px) rotateX(44deg);transform-origin:50% 26%;min-height:240px;}
-.track-bg{background:#1a3d1a;border:3px solid #c8a200;border-radius:14px;position:relative;overflow:hidden;}
+.track-bg{background:#0f2a0f;border:2px solid #c8a200;position:relative;overflow:hidden;}
 .lane-sep{position:absolute;left:0;right:0;border-top:1px dashed rgba(255,255,255,0.15);}
 .star-mark{position:absolute;font-size:11px;z-index:2;transform:translateX(-50%);pointer-events:none;}
 .finish-bar{position:absolute;top:0;left:0;right:0;height:18px;display:flex;}
 .finish-cell{flex:1;height:18px;}
 .start-bar{position:absolute;bottom:0;left:0;right:0;height:14px;background:repeating-linear-gradient(90deg,#fff 0,#fff 13px,#000 13px,#000 26px);opacity:0.5;}
 .mascot-el{position:absolute;text-align:center;transition:left .6s ease,top .6s ease;}
-.m-body{font-size:26px;display:block;transition:transform .3s;}
+.m-body{font-size:22px;display:block;transition:transform .3s;}
 .mascot-el.fallen .m-body{transform:rotate(90deg);}
 .mascot-el.reversed .m-body{transform:scaleX(-1);}
 .mascot-el.reversed.fallen .m-body{transform:scaleX(-1) rotate(-90deg);}
@@ -379,11 +379,6 @@ function showScr(id){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
   document.getElementById(id).classList.add('active');
   window.scrollTo(0,0);
-  // raceView表示時はtrackを必ず再構築（表示後に幅が確定するため）
-  if(id==='raceView'){
-    trackBuilt=false;
-    setTimeout(function(){buildTrack();trackBuilt=true;},80);
-  }
 }
 
 function createRoom(){
@@ -440,7 +435,7 @@ function startListening(){
     if(!s.val())return;
     snap=s.val();
     var st=snap.status;
-    if(st!==lastStatus){lastStatus=st;trackBuilt=false;}
+    if(st!==lastStatus){lastStatus=st;if(st!=='racing')trackBuilt=false;}
     if(st==='waiting')renderWaiting();
     else if(st==='betting')renderBetting();
     else if(st==='racing')renderRacing();
@@ -650,7 +645,12 @@ function renderRacing(){
   var rs=snap.raceState;
   if(!rs)return;
   document.getElementById('rTitle').textContent='RACE '+snap.race;
-  // buildTrackはshowScr内で非同期処理済み
+  // トラックが未構築または幅が0なら構築してから描画
+  var bg=document.getElementById('tBg');
+  if(!trackBuilt||!bg.style.width||bg.style.width==='0px'){
+    buildTrack();
+    trackBuilt=true;
+  }
   renderMascots(rs.mPos,rs.mSt,rs.retired||[]);
   updBar(rs.deck,rs.deckIdx);
   var logs=rs.log||[];
@@ -777,11 +777,13 @@ function applyCard(){
         if(mid===3&&dir===1){msg=m.emoji+' <span class="llane">'+m.name+' は左隔限のため移動不可</span>';break;}
         var newLane=pos.lane+dir;
         if(newLane<0||newLane>3){msg=m.emoji+' <span class="llane">'+m.name+' レーン外のため移動不可</span>';break;}
-        // 
+        // 同じレーン かつ X位置が隣接(±1マス以内)の走者のみ衝突判定
         var targetIdx=-1;
         for(var ti=0;ti<MASCOTS.length;ti++){
           if(ti!==mid&&mPos[ti].lane===newLane&&retired.indexOf(ti)<0){
-            targetIdx=ti;break;
+            if(Math.abs(mPos[ti].x - pos.x)<=1){
+              targetIdx=ti;break;
+            }
           }
         }
         if(targetIdx>=0){
@@ -830,16 +832,23 @@ function applyCard(){
 function processResults(){
   var rs=snap.raceState;
   var fo=(rs.finishOrder||[]).slice();
-  var retired=rs.retired||[];
-  // 
+  var retired=(rs.retired||[]).slice();
+  // ゴールもしていない・敗退もしていない走者をX位置順（降順）で追加
   var remaining=[];
   MASCOTS.forEach(function(_,i){
-    if(fo.indexOf(MASCOTS[i].id)<0&&retired.indexOf(i)<0)remaining.push(i);
+    if(fo.indexOf(MASCOTS[i].id)<0 && retired.indexOf(i)<0) remaining.push(i);
   });
-  remaining.sort(function(a,b){return mPos_sort(rs.mPos,b)-mPos_sort(rs.mPos,a);});
+  // X位置が大きい順（＝より前にいる順）でランク付け
+  remaining.sort(function(a,b){
+    var xa=rs.mPos[a]?rs.mPos[a].x:0;
+    var xb=rs.mPos[b]?rs.mPos[b].x:0;
+    return xb-xa; // 降順
+  });
   remaining.forEach(function(i){fo.push(MASCOTS[i].id);});
-  // 
-  retired.forEach(function(i){if(fo.indexOf(MASCOTS[i].id)<0)fo.push(MASCOTS[i].id);});
+  // 敗退者は最後尾
+  retired.forEach(function(i){
+    if(fo.indexOf(MASCOTS[i].id)<0) fo.push(MASCOTS[i].id);
+  });
 
   var players=sortedPlayers(snap);
   var bets=Object.values(snap.bets||{});
@@ -866,14 +875,19 @@ function renderResults(){
   var bets=Object.values(snap.bets||{});
 
   var pod=document.getElementById('podRow');pod.innerHTML='';
-  var podOrder=[1,0,2,3];
-  var podLabels=['🥇','🥈','🥉','4'];
-  var podCls=['p1','p2','p3','p4'];
-  podOrder.forEach(function(ri,di){
-    if(fo[ri]===undefined)return;
-    var m=MASCOTS[fo[ri]];if(!m)return;
+  // fo[0]=1位, fo[1]=2位, fo[2]=3位, fo[3]=4位
+  // ポディウム表示順(視覚): 2位, 1位, 3位, 4位
+  var podDisplay=[
+    {foIdx:1, label:'🥈', cls:'p2'},
+    {foIdx:0, label:'🥇', cls:'p1'},
+    {foIdx:2, label:'🥉', cls:'p3'},
+    {foIdx:3, label:'4位', cls:'p4'},
+  ];
+  podDisplay.forEach(function(pd){
+    if(fo[pd.foIdx]===undefined)return;
+    var m=MASCOTS[fo[pd.foIdx]];if(!m)return;
     var it=document.createElement('div');it.className='pod-item';
-    it.innerHTML='<div class="pod-emo">'+m.emoji+'</div><div class="pod-nm">'+m.name+'</div><div class="pod-blk '+podCls[di]+'">'+podLabels[di]+'</div>';
+    it.innerHTML='<div class="pod-emo">'+m.emoji+'</div><div class="pod-nm">'+m.name+'</div><div class="pod-blk '+pd.cls+'">'+pd.label+'</div>';
     pod.appendChild(it);
   });
 
@@ -942,42 +956,70 @@ function buildTrack(){
   var wrap=document.getElementById('trackWrap');
   var t3=document.getElementById('t3d');
   var bg=document.getElementById('tBg');
-  // offsetWidthが0の場合はbody幅から取得
   var W=Math.min((wrap.offsetWidth||document.body.offsetWidth||360)-8,440);
   if(W<100)W=340;
-  var H=240; // 4
+  var LANES=4;
+  var COLS=TRACK_LEN+1; // 0〜10マス = 11列
+  var cellW=Math.floor((W-4)/COLS);
+  var cellH=54;
+  var H=cellH*LANES;
   t3.style.width=W+'px';
   bg.style.width=W+'px';bg.style.height=H+'px';bg.style.position='relative';
   bg.innerHTML='';
-  var lH=H/4;
-  for(var i=1;i<4;i++){
-    var l=document.createElement('div');l.className='lane-sep';
-    l.style.top=(i*lH)+'px';bg.appendChild(l);
-  }
-  // 
-  STAR_POS.forEach(function(sp){
-    var xPct=sp/TRACK_LEN;
-    var xPx=22+xPct*(W-54);
-    for(var lane=0;lane<4;lane++){
-      var yPx=4+lane*lH+lH/2-8;
-      var st=document.createElement('div');st.className='star-mark';
-      st.textContent='⭐';st.style.left=xPx+'px';st.style.top=yPx+'px';
-      bg.appendChild(st);
+  // グリッドセル描画
+  for(var lane=0;lane<LANES;lane++){
+    for(var col=0;col<=TRACK_LEN;col++){
+      var cell=document.createElement('div');
+      var isStar=STAR_POS.indexOf(col)>=0;
+      var isGoal=col===TRACK_LEN;
+      var isStart=col===0;
+      var bg2=isGoal?'rgba(255,215,0,0.18)':isStar?'rgba(255,224,0,0.10)':'rgba(255,255,255,0.03)';
+      var border='1px solid rgba(255,255,255,0.10)';
+      cell.style.cssText='position:absolute;'
+        +'left:'+(col*cellW+2)+'px;'
+        +'top:'+(lane*cellH)+'px;'
+        +'width:'+cellW+'px;'
+        +'height:'+cellH+'px;'
+        +'background:'+bg2+';'
+        +'border:'+border+';'
+        +'box-sizing:border-box;';
+      bg.appendChild(cell);
+      // マス番号（上レーンのみ表示）
+      if(lane===0){
+        var num=document.createElement('div');
+        var label=isGoal?'GOAL':isStart?'ST':''+col;
+        num.style.cssText='position:absolute;top:2px;left:0;right:0;text-align:center;font-size:8px;color:'+(isGoal?'#f5c842':isStar?'#ffe066':'rgba(255,255,255,0.4)')+';font-weight:'+(isGoal||isStar?'700':'400')+';pointer-events:none;z-index:3;';
+        num.textContent=label;
+        cell.appendChild(num);
+      }
+      // ★マーク（★マスの各レーン中央）
+      if(isStar&&!isGoal){
+        var star=document.createElement('div');
+        star.style.cssText='position:absolute;bottom:3px;left:0;right:0;text-align:center;font-size:11px;pointer-events:none;z-index:3;';
+        star.textContent='⭐';
+        cell.appendChild(star);
+      }
+      // GOALライン
+      if(isGoal){
+        var gl=document.createElement('div');
+        gl.style.cssText='position:absolute;left:0;top:0;bottom:0;width:3px;background:repeating-linear-gradient(180deg,#fff 0,#fff 7px,#000 7px,#000 14px);z-index:3;';
+        cell.appendChild(gl);
+      }
     }
-  });
-  var fin=document.createElement('div');fin.className='finish-bar';
-  for(var c=0;c<10;c++){var fc=document.createElement('div');fc.className='finish-cell';fc.style.background=c%2===0?'#fff':'#000';fc.style.opacity='0.6';fin.appendChild(fc);}
-  bg.appendChild(fin);
-  var srt=document.createElement('div');srt.className='start-bar';bg.appendChild(srt);
+  }
+  // STARTライン
+  var sline=document.createElement('div');
+  sline.style.cssText='position:absolute;left:'+(cellW+2)+'px;top:0;bottom:0;width:2px;background:rgba(255,255,255,0.3);z-index:3;';
+  bg.appendChild(sline);
 }
 
 function renderMascots(mPos,mSt,retired){
   var bg=document.getElementById('tBg');
-  if(!bg.style.width||bg.style.width==='0px'){buildTrack();}
   bg.querySelectorAll('.mascot-el').forEach(function(e){e.remove();});
   var W=bg.offsetWidth||parseInt(bg.style.width)||320;
-  var H=bg.offsetHeight||parseInt(bg.style.height)||240;
-  var lH=H/4;
+  var COLS=TRACK_LEN+1;
+  var cellW=Math.floor((W-4)/COLS);
+  var cellH=54;
   MASCOTS.forEach(function(m,i){
     var pos=mPos[i];var st=mSt[i];
     var el=document.createElement('div');
@@ -987,8 +1029,11 @@ function renderMascots(mPos,mSt,retired){
     if(retired&&retired.indexOf(i)>=0)cls+=' retired';
     el.className=cls;
     var xp=Math.min(Math.max(pos.x,0),TRACK_LEN);
-    el.style.left=(22+(xp/TRACK_LEN)*(W-58))+'px';
-    el.style.top=(4+pos.lane*lH+lH/2-26)+'px';
+    // セルの中央に配置
+    var cx=xp*cellW+2+cellW/2;
+    var cy=pos.lane*cellH+cellH/2;
+    el.style.left=(cx-16)+'px';
+    el.style.top=(cy-22)+'px';
     el.innerHTML='<span class="m-body">'+m.emoji+'</span><div class="m-lbl">'+m.name.slice(0,4)+'</div>';
     bg.appendChild(el);
   });
