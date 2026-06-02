@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>🔥 HOT STREAK ONLINE</title>
 <style>
@@ -77,13 +78,13 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 .chip{padding:10px 16px;border-radius:22px;border:1px solid var(--border);background:transparent;color:var(--white);font-size:14px;font-weight:600;cursor:pointer;-webkit-appearance:none;}
 .chip.sel{background:var(--gold);color:#000;border-color:var(--gold);}
 
-/* ─ デッキ公開情報 ─ */
+/* - デッキ公開情報 - */
 .deck-public-area{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:var(--r);padding:12px;margin-bottom:14px;}
 .deck-public-title{font-size:12px;color:var(--gold);font-weight:600;margin-bottom:10px;}
 .deck-cards-grid{display:flex;flex-wrap:wrap;gap:6px;}
 .dc-chip{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;}
 
-/* ─ 手札 ─ */
+/* - 手札 - */
 .hand-scroll{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch;}
 .hand-scroll::-webkit-scrollbar{display:none;}
 .h-card{flex-shrink:0;width:88px;background:var(--bg2);border:2px solid var(--border);border-radius:var(--rs);padding:10px 7px;text-align:center;cursor:pointer;}
@@ -94,7 +95,7 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 .h-dsc{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.3;}
 .h-tag{font-size:9px;margin-top:5px;padding:2px 6px;border-radius:6px;display:inline-block;}
 
-/* ─ RACE ─ */
+/* - RACE - */
 .race-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:rgba(0,0,0,0.6);border-bottom:1px solid var(--border);}
 .r-title{font-size:15px;font-weight:700;color:var(--gold);}
 .r-sub{font-size:11px;color:var(--muted);}
@@ -242,7 +243,7 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
     <div class="m-grid" id="mGrid"></div>
     <div class="sec">💰 賭け金額</div>
     <div class="chips" id="amtChips"></div>
-    <div class="sec">🃏 手札から1枚デッキに仕込む（任意）<span style="color:var(--muted);font-weight:400;">— 他のプレイヤーには非公開</span></div>
+    <div class="sec">🃏 手札から1枚デッキに仕込む（任意）<span style="color:var(--muted);font-weight:400;">- 他のプレイヤーには非公開</span></div>
     <div class="hand-scroll" id="handScroll"></div>
     <div style="margin-top:14px;">
       <button class="btn btn-green" id="confBtn" onclick="submitBet()" disabled>確定する</button>
@@ -319,34 +320,34 @@ input[type=text]::placeholder{color:rgba(255,255,255,0.3);}
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
-// ══════════════════════════════════════════
+// ==========================================
 //  CONSTANTS
-// ══════════════════════════════════════════
+// ==========================================
 const MASCOTS=[
-  {id:0,name:'フライベア',emoji:'🐻',col:'#ff6b35'},
-  {id:1,name:'ロケフロッグ',emoji:'🐸',col:'#4aff84'},
-  {id:2,name:'スーパーシャーク',emoji:'🦈',col:'#4ac8ff'},
-  {id:3,name:'マジバニー',emoji:'🐰',col:'#cc88ff'},
+  {id:0,name:'\u30D5\u30E9\u30A4\u30D9\u30A2',emoji:'\uD83D\uDC3B',col:'#ff6b35'},
+  {id:1,name:'\u30ED\u30B1\u30D5\u30ED\u30C3\u30B0',emoji:'\uD83D\uDC38',col:'#4aff84'},
+  {id:2,name:'\u30B9\u30FC\u30D1\u30FC\u30B7\u30E3\u30FC\u30AF',emoji:'\uD83E\uDD88',col:'#4ac8ff'},
+  {id:3,name:'\u30DE\u30B8\u30D0\u30CB\u30FC',emoji:'\uD83D\uDC30',col:'#cc88ff'},
 ];
 const ALL_CARDS=[
-  {id:'fw3',name:'大前進',emoji:'🚀',desc:'3マス前進',effect:'forward',amt:3},
-  {id:'fw2',name:'前進',emoji:'➡️',desc:'2マス前進',effect:'forward',amt:2},
-  {id:'fw1',name:'小前進',emoji:'▶️',desc:'1マス前進',effect:'forward',amt:1},
-  {id:'bk2',name:'後退',emoji:'⬅️',desc:'2マス後退',effect:'back',amt:2},
-  {id:'bk1',name:'小後退',emoji:'◀️',desc:'1マス後退',effect:'back',amt:1},
-  {id:'fall',name:'転倒！',emoji:'💥',desc:'転倒・次の1回スキップ',effect:'fall',amt:0},
-  {id:'rev',name:'逆走',emoji:'🔄',desc:'進行方向が逆になる',effect:'reverse',amt:0},
-  {id:'rec',name:'リカバリー',emoji:'⭐',desc:'転倒/逆走から回復',effect:'recover',amt:0},
-  {id:'lane',name:'レーン移動',emoji:'↔️',desc:'隣のレーンへ移動',effect:'lane',amt:0},
-  {id:'star',name:'★ジャンプ',emoji:'🌟',desc:'次の★マスまで移動',effect:'star',amt:0},
+  {id:'fw3',name:'\u5927\u524D\u9032',emoji:'\uD83D\uDE80',desc:'3\u30DE\u30B9\u524D\u9032',effect:'forward',amt:3},
+  {id:'fw2',name:'\u524D\u9032',emoji:'\u27A1\uFE0F',desc:'2\u30DE\u30B9\u524D\u9032',effect:'forward',amt:2},
+  {id:'fw1',name:'\u5C0F\u524D\u9032',emoji:'\u25B6\uFE0F',desc:'1\u30DE\u30B9\u524D\u9032',effect:'forward',amt:1},
+  {id:'bk2',name:'\u5F8C\u9000',emoji:'\u2B05\uFE0F',desc:'2\u30DE\u30B9\u5F8C\u9000',effect:'back',amt:2},
+  {id:'bk1',name:'\u5C0F\u5F8C\u9000',emoji:'\u25C0\uFE0F',desc:'1\u30DE\u30B9\u5F8C\u9000',effect:'back',amt:1},
+  {id:'fall',name:'\u8EE2\u5012\uFF01',emoji:'\uD83D\uDCA5',desc:'\u8EE2\u5012\u30FB\u6B21\u306E1\u56DE\u30B9\u30AD\u30C3\u30D7',effect:'fall',amt:0},
+  {id:'rev',name:'\u9006\u8D70',emoji:'\uD83D\uDD04',desc:'\u9032\u884C\u65B9\u5411\u304C\u9006\u306B\u306A\u308B',effect:'reverse',amt:0},
+  {id:'rec',name:'\u30EA\u30AB\u30D0\u30EA\u30FC',emoji:'\u2B50',desc:'\u8EE2\u5012/\u9006\u8D70\u304B\u3089\u56DE\u5FA9',effect:'recover',amt:0},
+  {id:'lane',name:'\u30EC\u30FC\u30F3\u79FB\u52D5',emoji:'\u2194\uFE0F',desc:'\u96A3\u306E\u30EC\u30FC\u30F3\u3078\u79FB\u52D5',effect:'lane',amt:0},
+  {id:'star',name:'\u2605\u30B8\u30E3\u30F3\u30D7',emoji:'\uD83C\uDF1F',desc:'\u6B21\u306E\u2605\u30DE\u30B9\u307E\u3067\u79FB\u52D5',effect:'star',amt:0},
 ];
 const P_COLS=['#ff6b35','#4ac8ff','#4aff84','#cc88ff','#ffd700','#ff88aa','#44ddcc','#ffaa44','#aa88ff','#88ff88'];
-const P_EMO=['🦊','🐺','🐼','🦁','🐯','🦋','🐉','🦄','🐨','🐻‍❄️'];
+const P_EMO=['\uD83E\uDD8A','\uD83D\uDC3A','\uD83D\uDC3C','\uD83E\uDD81','\uD83D\uDC2F','\uD83E\uDD8B','\uD83D\uDC09','\uD83E\uDD84','\uD83D\uDC28','\uD83D\uDC3B\u200D\u2744\uFE0F'];
 const MULTS=[3,1.5,0.5,0];
 const TRACK_LEN=10;
-const STAR_POSITIONS=[5,10]; // 5マス毎に★
+const STAR_POSITIONS=[5,10]; // 5
 
-// Firebase config（埋め込み）
+// Firebase config
 const FIREBASE_CONFIG={
   apiKey:"AIzaSyCSqAR8CdlCCeBtkJh4wC57kIS1t2C2CD0",
   authDomain:"hothotstreak-54cac.firebaseapp.com",
@@ -357,34 +358,34 @@ const FIREBASE_CONFIG={
   appId:"1:164725106582:web:e70eff2424ec42332adfb7"
 };
 
-// ══════════════════════════════════════════
+// ==========================================
 //  STATE
-// ══════════════════════════════════════════
+// ==========================================
 let db=null, roomRef=null, roomCode='', myId='', isHost=false;
-let snap={}; // ローカルに保持するFirebaseスナップショット
+let snap={}; // Firebase
 let spd=1;
-let sMas=null, sAmt=null, sInjCard=null; // ベット選択状態
-let myHand=[]; // 自分の手札（ローカルのみ）
+let sMas=null, sAmt=null, sInjCard=null; // 
+let myHand=[]; // 
 let trackBuilt=false;
-let lastStatus=''; // 前回のstatus（重複処理防止）
-let lastBetIdx=-1; // ベットUIリビルド防止
+let lastStatus=''; // status
+let lastBetIdx=-1; // UI
 
-// ══════════════════════════════════════════
+// ==========================================
 //  FIREBASE INIT
-// ══════════════════════════════════════════
+// ==========================================
 window.addEventListener('load',()=>{
   try{
     firebase.initializeApp(FIREBASE_CONFIG);
     db=firebase.database();
     db.ref('.info/connected').on('value',s=>{
-      document.getElementById('connStatus').textContent=s.val()?'Firebase接続済み':'接続中...';
+      document.getElementById('connStatus').textContent=s.val()?'Firebase\u63A5\u7D9A\u6E08\u307F':'\u63A5\u7D9A\u4E2D...';
     });
-  }catch(e){alert('Firebase初期化エラー:'+e.message);}
+  }catch(e){alert('Firebase\u521D\u671F\u5316\u30A8\u30E9\u30FC:'+e.message);}
 });
 
-// ══════════════════════════════════════════
+// ==========================================
 //  ROOM MANAGEMENT
-// ══════════════════════════════════════════
+// ==========================================
 function genCode(){
   return Array.from({length:4},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*32)]).join('');
 }
@@ -400,7 +401,7 @@ function toggleJoin(){
 }
 
 function createRoom(){
-  const name=(document.getElementById('myName').value||'ホスト').trim();
+  const name=(document.getElementById('myName').value||'\u30DB\u30B9\u30C8').trim();
   myId=genId(); myName=name; isHost=true;
   roomCode=genCode();
   roomRef=db.ref('rooms/'+roomCode);
@@ -423,16 +424,16 @@ function createRoom(){
 
 function joinRoom(){
   const code=(document.getElementById('joinCode').value||'').trim().toUpperCase();
-  if(code.length!==4){alert('4桁のコードを入力してください');return;}
-  const name=(document.getElementById('myName').value||'ゲスト').trim();
+  if(code.length!==4){alert('4\u6841\u306E\u30B3\u30FC\u30C9\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044');return;}
+  const name=(document.getElementById('myName').value||'\u30B2\u30B9\u30C8').trim();
   myId=genId(); myName=name; isHost=false; roomCode=code;
   roomRef=db.ref('rooms/'+code);
   roomRef.once('value').then(s=>{
     const data=s.val();
-    if(!data){alert('ルームが見つかりません');return;}
-    if(data.status!=='waiting'){alert('このルームはゲーム開始済みです');return;}
+    if(!data){alert('\u30EB\u30FC\u30E0\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093');return;}
+    if(data.status!=='waiting'){alert('\u3053\u306E\u30EB\u30FC\u30E0\u306F\u30B2\u30FC\u30E0\u958B\u59CB\u6E08\u307F\u3067\u3059');return;}
     const existing=Object.values(data.players||{});
-    if(existing.length>=10){alert('満員です');return;}
+    if(existing.length>=10){alert('\u6E80\u54E1\u3067\u3059');return;}
     const idx=existing.length;
     const player={id:myId,name,emoji:P_EMO[idx],col:P_COLS[idx],money:500,isHost:false};
     roomRef.child('players/'+myId).set(player).then(()=>{
@@ -447,22 +448,22 @@ function joinRoom(){
 }
 
 function copyCode(){
-  navigator.clipboard&&navigator.clipboard.writeText(roomCode).then(()=>alert('コピーしました: '+roomCode)).catch(()=>alert('コード: '+roomCode));
+  navigator.clipboard&&navigator.clipboard.writeText(roomCode).then(()=>alert('\u30B3\u30D4\u30FC\u3057\u307E\u3057\u305F: '+roomCode)).catch(()=>alert('\u30B3\u30FC\u30C9: '+roomCode));
 }
 
-// ══════════════════════════════════════════
-//  CENTRAL LISTENER  ← シンプルに1つだけ
-// ══════════════════════════════════════════
+// ==========================================
+//  CENTRAL LISTENER   1
+// ==========================================
 function startListening(){
   roomRef.on('value',s=>{
     if(!s.val())return;
     snap=s.val();
     const st=snap.status;
 
-    // statusが変わった時だけ画面遷移（重複防止）
+    // status
     if(st!==lastStatus){
       lastStatus=st;
-      lastBetIdx=-1; // status変化時にリセット
+      lastBetIdx=-1; // status
       trackBuilt=false;
     }
 
@@ -476,9 +477,9 @@ function startListening(){
   });
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 //  WAITING ROOM
-// ══════════════════════════════════════════
+// ==========================================
 function renderWaiting(){
   showScr('waitingRoom');
   const players=sortedPlayers(snap);
@@ -489,7 +490,7 @@ function renderWaiting(){
     r.innerHTML=`<div class="pl-dot" style="background:${p.col}"></div><div class="pl-name">${p.name}</div>${p.isHost?'<span class="badge badge-host">HOST</span>':''}${p.id===myId?'<span class="badge badge-you">YOU</span>':''}`;
     list.appendChild(r);
   });
-  document.getElementById('waitStatus').textContent=`${players.length}人が参加中`;
+  document.getElementById('waitStatus').textContent=`${players.length}\u4EBA\u304C\u53C2\u52A0\u4E2D`;
   if(isHost){
     document.getElementById('hostStartDiv').style.display='block';
     document.getElementById('guestWaitDiv').style.display='none';
@@ -504,7 +505,7 @@ function hostStart(){
   if(!isHost)return;
   const players=sortedPlayers(snap);
   if(players.length<2)return;
-  // 公開デッキ10枚をランダム選出（全カードタイプ×マスコットのプールからシャッフル）
+  // 10
   const pool=[];
   MASCOTS.forEach(m=>ALL_CARDS.forEach(c=>pool.push({...c,mascotId:m.id})));
   shuffle(pool);
@@ -512,19 +513,19 @@ function hostStart(){
   roomRef.update({status:'betting',betIdx:0,bets:{},publicDeck,race:1});
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 //  BETTING
-// ══════════════════════════════════════════
+// ==========================================
 function renderBetting(){
   showScr('betPhase');
   const players=sortedPlayers(snap);
   const betIdx=snap.betIdx||0;
   document.getElementById('betLabel').textContent=`RACE ${snap.race}`;
 
-  // 公開デッキ表示（常に更新）
+  // 
   renderPublicDeck(snap.publicDeck||[]);
 
-  // 全員ベット完了 → ホストがデッキ確定してレース開始
+  //   
   if(betIdx>=players.length){
     if(isHost) finalizeDeckthenRace();
     return;
@@ -533,18 +534,18 @@ function renderBetting(){
   const cur=players[betIdx];
   const myTurn=(cur.id===myId);
 
-  // ターン表示更新
+  // 
   const av=document.getElementById('tAv');
   av.textContent=cur.emoji; av.style.background=cur.col+'33';
   document.getElementById('tNm').textContent=cur.name;
   document.getElementById('tMn').textContent=`$${cur.money}`;
-  document.getElementById('tDsc').textContent=`${betIdx+1}/${players.length}番目`;
+  document.getElementById('tDsc').textContent=`${betIdx+1}/${players.length}\u756A\u76EE`;
 
   document.getElementById('myBetArea').style.display=myTurn?'block':'none';
   document.getElementById('waitBetArea').style.display=myTurn?'none':'block';
 
   if(myTurn){
-    // 自分のターンかつbetIdxが変わった時だけUIリビルド
+    // betIdxUI
     if(lastBetIdx!==betIdx){
       lastBetIdx=betIdx;
       buildMyBetUI(cur);
@@ -557,7 +558,7 @@ function renderBetting(){
     players.forEach((p,i)=>{
       const done=i<betIdx,now=i===betIdx;
       const r=document.createElement('div');r.className='pl-row';
-      r.innerHTML=`<div class="pl-dot" style="background:${p.col}"></div><div class="pl-name">${p.name}</div><span style="font-size:13px">${done?'✅':now?'🎰':'⏳'}</span>`;
+      r.innerHTML=`<div class="pl-dot" style="background:${p.col}"></div><div class="pl-name">${p.name}</div><span style="font-size:13px">${done?'\u2705':now?'\uD83C\uDFB0':'\u23F3'}</span>`;
       prog.appendChild(r);
     });
   }
@@ -580,19 +581,19 @@ function renderPublicDeck(publicDeck){
 
 function buildMyBetUI(player){
   sMas=null; sAmt=null; sInjCard=null;
-  // 手札生成（3枚ランダム）
+  // 3
   myHand=buildHand();
 
-  // マスコット選択
+  // 
   const g=document.getElementById('mGrid');g.innerHTML='';
   MASCOTS.forEach(m=>{
     const el=document.createElement('div');el.className='m-card';el.id='mc'+m.id;
-    el.innerHTML=`<span class="m-emo">${m.emoji}</span><div class="m-nm">${m.name}</div><div class="m-od">1位 x3 / 2位 x1.5</div>`;
+    el.innerHTML=`<span class="m-emo">${m.emoji}</span><div class="m-nm">${m.name}</div><div class="m-od">1\u4F4D x3 / 2\u4F4D x1.5</div>`;
     el.onclick=()=>pickM(m.id);
     g.appendChild(el);
   });
 
-  // 賭け金額
+  // 
   const ch=document.getElementById('amtChips');ch.innerHTML='';
   [50,100,150,200].forEach(v=>{
     if(v<=player.money){
@@ -601,14 +602,14 @@ function buildMyBetUI(player){
     }
   });
 
-  // 手札
+  // 
   buildHandUI();
   document.getElementById('confBtn').disabled=true;
-  document.getElementById('confBtn').textContent='確定する';
+  document.getElementById('confBtn').textContent='\u78BA\u5B9A\u3059\u308B';
 }
 
 function buildHand(){
-  // カードプール（全カード×全マスコット）からランダムに3枚
+  // 3
   const pool=[];
   MASCOTS.forEach(m=>ALL_CARDS.forEach(c=>pool.push({...c,mascotId:m.id})));
   shuffle(pool);
@@ -617,12 +618,12 @@ function buildHand(){
 
 function buildHandUI(){
   const sc=document.getElementById('handScroll');sc.innerHTML='';
-  // 「仕込まない」
-  const none=mkHCard('✋','仕込まない','秘密カードなし','','');
+  // 
+  const none=mkHCard('\u270B','\u4ED5\u8FBC\u307E\u306A\u3044','\u79D8\u5BC6\u30AB\u30FC\u30C9\u306A\u3057','','');
   none.classList.add('none-card','sel');
   none.onclick=()=>{sInjCard=null;sc.querySelectorAll('.h-card').forEach(c=>c.classList.remove('sel'));none.classList.add('sel');};
   sc.appendChild(none);
-  // 手札3枚
+  // 3
   myHand.forEach(cd=>{
     const m=MASCOTS[cd.mascotId];
     const el=mkHCard(cd.emoji,cd.name,cd.desc,m.emoji+' '+m.name,m.col);
@@ -655,32 +656,32 @@ function chkBet(){document.getElementById('confBtn').disabled=!(sMas!==null&&sAm
 function submitBet(){
   if(sMas===null||sAmt===null)return;
   const btn=document.getElementById('confBtn');
-  btn.disabled=true; btn.textContent='送信中...';
+  btn.disabled=true; btn.textContent='\u9001\u4FE1\u4E2D...';
   const bet={playerId:myId,mascotId:sMas,amount:sAmt,inj:sInjCard||null};
-  // ベット保存してからbetIdxをトランザクションで+1
+  // betIdx+1
   roomRef.child('bets/'+myId).set(bet)
     .then(()=>roomRef.child('betIdx').transaction(v=>(v||0)+1))
-    .then(()=>{/* 成功 — Firebaseリスナーが自動で次の状態を反映 */})
+    .then(()=>{/*  - Firebase */})
     .catch(e=>{
       console.error(e);
-      btn.disabled=false; btn.textContent='確定する';
-      alert('送信エラー。もう一度お試しください。');
+      btn.disabled=false; btn.textContent='\u78BA\u5B9A\u3059\u308B';
+      alert('\u9001\u4FE1\u30A8\u30E9\u30FC\u3002\u3082\u3046\u4E00\u5EA6\u304A\u8A66\u3057\u304F\u3060\u3055\u3044\u3002');
     });
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 //  DECK FINALIZATION
-// ══════════════════════════════════════════
+// ==========================================
 function finalizeDeckthenRace(){
-  // 公開デッキ10枚
+  // 10
   const base=(snap.publicDeck||[]).map(c=>({...c}));
-  // 各プレイヤーの仕込みカード追加
+  // 
   const bets=Object.values(snap.bets||{});
   bets.forEach(b=>{if(b.inj)base.push({...b.inj});});
-  // シャッフル後ランダム3枚除外
+  // 3
   shuffle(base);
-  const finalDeck=base.slice(3); // 先頭3枚を除外
-  shuffle(finalDeck); // 再シャッフル
+  const finalDeck=base.slice(3); // 3
+  shuffle(finalDeck); // 
 
   const mPos=MASCOTS.map((_,i)=>({x:0,lane:i}));
   const mSt=MASCOTS.map(()=>'normal');
@@ -689,9 +690,9 @@ function finalizeDeckthenRace(){
   roomRef.update({status:'racing',raceState});
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 //  RACING
-// ══════════════════════════════════════════
+// ==========================================
 function renderRacing(){
   showScr('raceView');
   const rs=snap.raceState;
@@ -699,7 +700,7 @@ function renderRacing(){
 
   document.getElementById('rTitle').textContent=`RACE ${snap.race}`;
 
-  // トラック初回構築
+  // 
   if(!trackBuilt){
     buildTrack();
     trackBuilt=true;
@@ -708,41 +709,41 @@ function renderRacing(){
   renderMascots(rs.mPos,rs.mSt);
   updBar(rs.deck,rs.deckIdx);
 
-  // ログ同期
+  // 
   const rLog=document.getElementById('rLog');
   const logs=rs.log||[];
   rLog.innerHTML='';
   logs.forEach(h=>{const d=document.createElement('div');d.innerHTML=h;rLog.appendChild(d);});
   rLog.scrollTop=rLog.scrollHeight;
 
-  // レース終了チェック
+  // 
   const done=(rs.finishOrder&&rs.finishOrder.length>=MASCOTS.length)||rs.deckIdx>=rs.deck.length;
   if(done){
     document.getElementById('drawBtn').disabled=true;
-    document.getElementById('drawBtn').innerHTML='🏁 レース終了！';
-    document.getElementById('rSub').textContent='🏁 レース終了！';
+    document.getElementById('drawBtn').innerHTML='\uD83C\uDFC1 \u30EC\u30FC\u30B9\u7D42\u4E86\uFF01';
+    document.getElementById('rSub').textContent='\uD83C\uDFC1 \u30EC\u30FC\u30B9\u7D42\u4E86\uFF01';
     if(isHost&&snap.status==='racing') processResults();
     return;
   }
 
-  document.getElementById('rSub').textContent=`カード ${rs.deckIdx}/${rs.deck.length}`;
+  document.getElementById('rSub').textContent=`\u30AB\u30FC\u30C9 ${rs.deckIdx}/${rs.deck.length}`;
 
-  // ホスト/ゲストUI切り替え
+  // /UI
   if(isHost){
     document.getElementById('hostDrawDiv').style.display='block';
     document.getElementById('guestDrawDiv').style.display='none';
-    // pendingCardがあって未適用なら適用ボタン表示
+    // pendingCard
     if(rs.pendingCard&&!rs.cardApplied){
       showPendingModal(rs.pendingCard);
     }else{
       document.getElementById('modalArea').innerHTML='';
       document.getElementById('drawBtn').disabled=false;
-      document.getElementById('drawBtn').innerHTML='🃏 カードをめくる';
+      document.getElementById('drawBtn').innerHTML='\uD83C\uDCCF \u30AB\u30FC\u30C9\u3092\u3081\u304F\u308B';
     }
   }else{
     document.getElementById('hostDrawDiv').style.display='none';
     document.getElementById('guestDrawDiv').style.display='block';
-    // ゲストにもカード表示（確認用・操作不可）
+    // 
     if(rs.pendingCard&&!rs.cardApplied){
       showPendingModal(rs.pendingCard,false);
     }else{
@@ -766,15 +767,15 @@ function hostDraw(){
 
 function showPendingModal(card,canApply=true){
   const area=document.getElementById('modalArea');
-  if(area.querySelector('.modal-wrap'))return; // 既に表示中
+  if(area.querySelector('.modal-wrap'))return; // 
   const m=MASCOTS[card.mascotId];
   const wrap=document.createElement('div');wrap.className='modal-wrap';
   const box=document.createElement('div');box.className='modal-box';
   box.style.borderColor=m.col;
   const btnHtml=canApply
-    ?`<button class="mod-btn" style="background:${m.col};color:#000;" onclick="applyCard()">適用する</button>`
-    :`<div style="font-size:12px;color:var(--muted);">ホストが適用中...</div>`;
-  box.innerHTML=`<div class="mod-ico">${card.emoji}</div><div class="mod-ttl">${card.name}</div><div class="mod-tgt">${m.emoji} ${m.name}のカード</div><div class="mod-dsc">${card.desc}</div>${btnHtml}`;
+    ?`<button class="mod-btn" style="background:${m.col};color:#000;" onclick="applyCard()">\u9069\u7528\u3059\u308B</button>`
+    :`<div style="font-size:12px;color:var(--muted);">\u30DB\u30B9\u30C8\u304C\u9069\u7528\u4E2D...</div>`;
+  box.innerHTML=`<div class="mod-ico">${card.emoji}</div><div class="mod-ttl">${card.name}</div><div class="mod-tgt">${m.emoji} ${m.name}\u306E\u30AB\u30FC\u30C9</div><div class="mod-dsc">${card.desc}</div>${btnHtml}`;
   wrap.appendChild(box);
   area.innerHTML='';
   area.appendChild(wrap);
@@ -797,50 +798,50 @@ function applyCard(){
   let msg='';
 
   if(st==='fallen'&&card.effect!=='recover'){
-    msg=`${m.emoji} <span class="lhi">${m.name}</span> は転倒中のためスキップ`;
+    msg=`${m.emoji} <span class="lhi">${m.name}</span> \u306F\u8EE2\u5012\u4E2D\u306E\u305F\u3081\u30B9\u30AD\u30C3\u30D7`;
   }else{
     switch(card.effect){
       case'forward':{
         const mv=st==='reversed'?-card.amt:card.amt;
         pos.x=Math.max(0,pos.x+mv);
-        msg=`${m.emoji} <span class="lf">${m.name} ${card.amt}マス${st==='reversed'?'（逆走）後退':'前進'}！</span>`;
+        msg=`${m.emoji} <span class="lf">${m.name} ${card.amt}\u30DE\u30B9${st==='reversed'?'\uFF08\u9006\u8D70\uFF09\u5F8C\u9000':'\u524D\u9032'}\uFF01</span>`;
         break;
       }
       case'back':{
         const mv=st==='reversed'?card.amt:-card.amt;
         pos.x=Math.max(0,pos.x+mv);
-        msg=`${m.emoji} <span class="lb">${m.name} ${card.amt}マス後退</span>`;
+        msg=`${m.emoji} <span class="lb">${m.name} ${card.amt}\u30DE\u30B9\u5F8C\u9000</span>`;
         break;
       }
       case'fall':{
-        if(st==='normal'){mSt[card.mascotId]='fallen';msg=`${m.emoji} <span class="lfall">${m.name} 転倒💥！</span>`;}
-        else msg=`${m.emoji} ${m.name} は既に転倒中`;
+        if(st==='normal'){mSt[card.mascotId]='fallen';msg=`${m.emoji} <span class="lfall">${m.name} \u8EE2\u5012\uD83D\uDCA5\uFF01</span>`;}
+        else msg=`${m.emoji} ${m.name} \u306F\u65E2\u306B\u8EE2\u5012\u4E2D`;
         break;
       }
       case'reverse':{
-        if(st==='reversed'){mSt[card.mascotId]='normal';msg=`${m.emoji} <span class="lrec">${m.name} 正走に戻った</span>`;}
-        else if(st==='normal'){mSt[card.mascotId]='reversed';msg=`${m.emoji} <span class="lrev">${m.name} 逆走モード🔄</span>`;}
+        if(st==='reversed'){mSt[card.mascotId]='normal';msg=`${m.emoji} <span class="lrec">${m.name} \u6B63\u8D70\u306B\u623B\u3063\u305F</span>`;}
+        else if(st==='normal'){mSt[card.mascotId]='reversed';msg=`${m.emoji} <span class="lrev">${m.name} \u9006\u8D70\u30E2\u30FC\u30C9\uD83D\uDD04</span>`;}
         break;
       }
       case'recover':{
         mSt[card.mascotId]='normal';
-        msg=`${m.emoji} <span class="lrec">${m.name} リカバリー⭐</span>`;
+        msg=`${m.emoji} <span class="lrec">${m.name} \u30EA\u30AB\u30D0\u30EA\u30FC\u2B50</span>`;
         break;
       }
       case'lane':{
         pos.lane=(pos.lane+1)%4;
-        msg=`${m.emoji} <span class="llane">${m.name} レーン移動↔️</span>`;
+        msg=`${m.emoji} <span class="llane">${m.name} \u30EC\u30FC\u30F3\u79FB\u52D5\u2194\uFE0F</span>`;
         break;
       }
       case'star':{
-        // 現在位置より先の最初の★マスへ移動
+        // 
         const nextStar=STAR_POSITIONS.find(s=>s>pos.x);
         if(nextStar){
           pos.x=nextStar;
-          msg=`${m.emoji} <span class="lstar">${m.name} ★マスへジャンプ！⭐→ ${nextStar}マス地点</span>`;
+          msg=`${m.emoji} <span class="lstar">${m.name} \u2605\u30DE\u30B9\u3078\u30B8\u30E3\u30F3\u30D7\uFF01\u2B50\u2192 ${nextStar}\u30DE\u30B9\u5730\u70B9</span>`;
         }else{
-          pos.x=TRACK_LEN; // ゴールへ
-          msg=`${m.emoji} <span class="lstar">${m.name} ★マスがないのでゴールへ！</span>`;
+          pos.x=TRACK_LEN; // 
+          msg=`${m.emoji} <span class="lstar">${m.name} \u2605\u30DE\u30B9\u304C\u306A\u3044\u306E\u3067\u30B4\u30FC\u30EB\u3078\uFF01</span>`;
         }
         break;
       }
@@ -849,20 +850,20 @@ function applyCard(){
 
   log.push(msg);
 
-  // ゴールチェック
+  // 
   MASCOTS.forEach((_,i)=>{
     if(mPos[i].x>=TRACK_LEN&&!finishOrder.includes(MASCOTS[i].id)){
       finishOrder.push(MASCOTS[i].id);
-      log.push(`${MASCOTS[i].emoji} <span class="lhi">${MASCOTS[i].name}</span> が${finishOrder.length}位でゴール！`);
+      log.push(`${MASCOTS[i].emoji} <span class="lhi">${MASCOTS[i].name}</span> \u304C${finishOrder.length}\u4F4D\u3067\u30B4\u30FC\u30EB\uFF01`);
     }
   });
 
   roomRef.child('raceState').update({mPos,mSt,log,finishOrder,pendingCard:null,cardApplied:true});
 }
 
-// ══════════════════════════════════════════
-//  PROCESS RESULTS  (ホストのみ実行)
-// ══════════════════════════════════════════
+// ==========================================
+//  PROCESS RESULTS  ()
+// ==========================================
 function processResults(){
   const rs=snap.raceState;
   let fo=[...(rs.finishOrder||[])];
@@ -883,27 +884,27 @@ function processResults(){
   roomRef.update(playerUpdates);
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 //  RESULTS
-// ══════════════════════════════════════════
+// ==========================================
 function renderResults(){
   showScr('resultsView');
-  document.getElementById('resLabel').textContent=`RACE ${snap.race} 結果`;
+  document.getElementById('resLabel').textContent=`RACE ${snap.race} \u7D50\u679C`;
   const fo=snap.raceState?.finishOrder||[];
   const players=sortedPlayers(snap);
   const bets=Object.values(snap.bets||{});
 
-  // ポディウム
+  // 
   const pod=document.getElementById('podRow');pod.innerHTML='';
   [1,0,2,3].forEach((ri,di)=>{
     if(fo[ri]===undefined)return;
     const m=MASCOTS[fo[ri]];
     const it=document.createElement('div');it.className='pod-item';
-    it.innerHTML=`<div class="pod-emo">${m.emoji}</div><div class="pod-nm">${m.name}</div><div class="pod-blk p${di+1}">${['🥇','🥈','🥉','4'][di]}</div>`;
+    it.innerHTML=`<div class="pod-emo">${m.emoji}</div><div class="pod-nm">${m.name}</div><div class="pod-blk p${di+1}">${['\uD83E\uDD47','\uD83E\uDD48','\uD83E\uDD49','4'][di]}</div>`;
     pod.appendChild(it);
   });
 
-  // 配当
+  // 
   const pl=document.getElementById('payList');pl.innerHTML='';
   bets.forEach(bet=>{
     const p=players.find(x=>x.id===bet.playerId);if(!p)return;
@@ -912,7 +913,7 @@ function renderResults(){
     const net=Math.floor(bet.amount*mult)-bet.amount;
     const bm=MASCOTS[bet.mascotId];
     const row=document.createElement('div');row.className='pay-row'+(net>0?' win':'');
-    row.innerHTML=`<div class="pay-av" style="background:${p.col}33">${p.emoji}</div><div class="pay-inf"><div class="pay-nm">${p.name}${p.id===myId?' (あなた)':''}</div><div class="pay-dt">${bm.emoji}${bm.name} ${rank}位 x${mult} 賭$${bet.amount}</div></div><div class="pay-amt ${net>=0?'pay-p':'pay-m'}">${net>=0?'+':''}$${net}</div>`;
+    row.innerHTML=`<div class="pay-av" style="background:${p.col}33">${p.emoji}</div><div class="pay-inf"><div class="pay-nm">${p.name}${p.id===myId?' (\u3042\u306A\u305F)':''}</div><div class="pay-dt">${bm.emoji}${bm.name} ${rank}\u4F4D x${mult} \u8CED$${bet.amount}</div></div><div class="pay-amt ${net>=0?'pay-p':'pay-m'}">${net>=0?'+':''}$${net}</div>`;
     pl.appendChild(row);
   });
 
@@ -922,7 +923,7 @@ function renderResults(){
   if(isHost){
     document.getElementById('hostNextDiv').style.display='block';
     document.getElementById('guestNextDiv').style.display='none';
-    document.getElementById('nextBtn').textContent=isLast?'🏆 最終結果へ':`RACE ${snap.race+1}へ →`;
+    document.getElementById('nextBtn').textContent=isLast?'\uD83C\uDFC6 \u6700\u7D42\u7D50\u679C\u3078':`RACE ${snap.race+1}\u3078 \u2192`;
   }else{
     document.getElementById('hostNextDiv').style.display='none';
     document.getElementById('guestNextDiv').style.display='block';
@@ -934,7 +935,7 @@ function hostNext(){
   if(snap.race>=snap.total){
     roomRef.update({status:'final'});
   }else{
-    // 次のレースの公開デッキを再生成
+    // 
     const pool=[];
     MASCOTS.forEach(m=>ALL_CARDS.forEach(c=>pool.push({...c,mascotId:m.id})));
     shuffle(pool);
@@ -943,16 +944,16 @@ function hostNext(){
   }
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 //  FINAL
-// ══════════════════════════════════════════
+// ==========================================
 function renderFinal(){
   showScr('finalView');
   const players=sortedPlayers(snap).sort((a,b)=>b.money-a.money);
   const w=players[0];
   document.getElementById('fCrown').textContent=w.emoji;
-  document.getElementById('fWin').textContent=`${w.name} 優勝！`;
-  document.getElementById('fMon').textContent=`最終所持金 $${w.money}`;
+  document.getElementById('fWin').textContent=`${w.name} \u512A\u52DD\uFF01`;
+  document.getElementById('fMon').textContent=`\u6700\u7D42\u6240\u6301\u91D1 $${w.money}`;
   renderSt('fStands',players);
   launchFW();
   if(isHost){
@@ -971,9 +972,9 @@ function hostRestart(){
   roomRef.update({status:'waiting',race:1,bets:{},betIdx:0,raceState:null,publicDeck:[],players});
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 //  TRACK RENDER
-// ══════════════════════════════════════════
+// ==========================================
 function buildTrack(){
   const wrap=document.getElementById('trackWrap');
   const t3=document.getElementById('t3d');
@@ -989,7 +990,7 @@ function buildTrack(){
     l.style.top=(i*(H/4))+'px'; bg.appendChild(l);
   }
 
-  // ★マークをトラックに描画
+  // 
   STAR_POSITIONS.forEach(sp=>{
     const xPct=sp/TRACK_LEN;
     const xPx=20+xPct*(W-55);
@@ -998,7 +999,7 @@ function buildTrack(){
       const yPx=18+lane*lH+lH/2-8;
       const st=document.createElement('div');
       st.className='star-mark';
-      st.textContent='⭐';
+      st.textContent='\u2B50';
       st.style.left=xPx+'px';
       st.style.top=yPx+'px';
       bg.appendChild(st);
@@ -1033,21 +1034,21 @@ function updBar(deck,dIdx){
   document.getElementById('pCnt').textContent=`${dIdx||0}/${deck?deck.length:0}`;
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 //  UTILS
-// ══════════════════════════════════════════
+// ==========================================
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}}
 function setSpd(s,btn){spd=s;document.querySelectorAll('.sp-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
 function renderSt(id,players){
   const div=document.getElementById(id);div.innerHTML='';
   [...players].sort((a,b)=>b.money-a.money).forEach((p,i)=>{
     const row=document.createElement('div');row.className='st-row';
-    row.innerHTML=`<div class="st-rank ${i===0?'g':''}">${i+1}</div><div class="st-av" style="background:${p.col}33">${p.emoji}</div><div class="st-nm">${p.name}${p.id===myId?' (あなた)':''}</div><div class="st-mn">$${p.money}</div>`;
+    row.innerHTML=`<div class="st-rank ${i===0?'g':''}">${i+1}</div><div class="st-av" style="background:${p.col}33">${p.emoji}</div><div class="st-nm">${p.name}${p.id===myId?' (\u3042\u306A\u305F)':''}</div><div class="st-mn">$${p.money}</div>`;
     div.appendChild(row);
   });
 }
 function launchFW(){
-  const fx=['🎆','🎇','✨','🌟','💫','🎉'];
+  const fx=['\uD83C\uDF86','\uD83C\uDF87','\u2728','\uD83C\uDF1F','\uD83D\uDCAB','\uD83C\uDF89'];
   const base=document.getElementById('finalView');
   for(let i=0;i<10;i++){
     setTimeout(()=>{
